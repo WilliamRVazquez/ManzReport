@@ -23,45 +23,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/lineabotonsesion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/background"
-        android:orientation="vertical"
+    <Button
+        android:id="@+id/sesioniniciar"
+        android:layout_width="240dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:backgroundTint="#C23A3A"
+        android:text="Iniciar Sesion"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:cornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/background"
-        app:layout_constraintVertical_bias="1.0"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp">
-
-        <Button
-            android:id="@+id/sesioniniciar"
-            android:layout_width="240dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="350dp"
-            android:backgroundTint="#C23A3A"
-            android:text="Iniciar Sesion"
-            android:textColor="@color/white"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            app:cornerRadius="30dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-
-
-        </LinearLayout>
-
-    </LinearLayout>
-
+        app:layout_constraintVertical_bias="0.836" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
