@@ -7,21 +7,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class login extends AppCompatActivity {
-    TextView register_btn;
+public class Sing_up extends AppCompatActivity {
+    TextView btn_inisesion;
     Intent i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        register_btn = (TextView) findViewById(R.id.txtv_register_and_btn);
+        setContentView(R.layout.activity_sing_up);
+        btn_inisesion = (TextView) findViewById(R.id.txtv_inisesion_btn);
 
-        register_btn.setOnClickListener(new View.OnClickListener() {
+        btn_inisesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                i = new Intent(login.this,Sing_up.class);
+                i = new Intent(Sing_up.this,login.class);
                 startActivity(i);
+
+
             }
         });
     }

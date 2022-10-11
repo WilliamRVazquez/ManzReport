@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login">
+    tools:context=".Sing_up">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/Fondo"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -50,7 +50,8 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Logo_Manzanillo"
-            app:layout_constraintVertical_bias="0.0">
+            android:orientation="vertical"
+            app:layout_constraintVertical_bias="1.0">
 
 
             <ImageView
@@ -70,34 +71,35 @@
                 android:orientation="horizontal"
                 android:src="@drawable/rec_roj_regis"
                 app:layout_constraintBottom_toBottomOf="@+id/indicador_gris"
-                app:layout_constraintStart_toStartOf="@+id/indicador_gris"
+                app:layout_constraintEnd_toEndOf="@+id/indicador_gris"
                 app:layout_constraintTop_toTopOf="@+id/indicador_gris"
+                app:layout_constraintVertical_bias="0.0"
                 tools:ignore="MissingConstraints" />
 
             <TextView
-                android:id="@+id/txtv_inisesion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Inicio De Sesion"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                app:layout_constraintBottom_toBottomOf="@+id/indicador_rojo"
-                app:layout_constraintEnd_toEndOf="@+id/indicador_rojo"
-                app:layout_constraintStart_toStartOf="@+id/indicador_gris"
-                app:layout_constraintTop_toTopOf="@+id/indicador_rojo"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/txtv_register_and_btn"
+                android:id="@+id/txtv_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Registro"
                 android:textColor="@color/white"
                 android:textSize="15dp"
-                android:clickable="true"
                 app:layout_constraintBottom_toBottomOf="@+id/indicador_gris"
                 app:layout_constraintEnd_toEndOf="@+id/indicador_gris"
                 app:layout_constraintHorizontal_bias="0.867"
+                app:layout_constraintStart_toStartOf="@+id/indicador_gris"
+                app:layout_constraintTop_toTopOf="@+id/indicador_gris"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/txtv_inisesion_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inicio De Sesion"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="@+id/indicador_gris"
+                app:layout_constraintEnd_toStartOf="@+id/indicador_rojo"
+                app:layout_constraintHorizontal_bias="0.373"
                 app:layout_constraintStart_toStartOf="@+id/indicador_gris"
                 app:layout_constraintTop_toTopOf="@+id/indicador_gris"
                 tools:ignore="MissingConstraints" />
@@ -117,11 +119,28 @@
                 tools:ignore="MissingConstraints" />
 
             <EditText
+                android:id="@+id/Register_Nombre_Completo"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="15dp"
+                android:backgroundTint="#D9D9D9"
+                android:hint="Nombre Completo"
+                android:textColorHint="#8C8C8C"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.495"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Name_App" />
+
+            <EditText
                 android:id="@+id/Register_Correo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="15dp"
                 android:backgroundTint="#D9D9D9"
                 android:hint="Correo"
@@ -131,7 +150,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/Contenedor_1"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/Contenedor_1"
-                app:layout_constraintTop_toBottomOf="@+id/Name_App"
+                app:layout_constraintTop_toBottomOf="@+id/Register_Nombre_Completo"
                 tools:ignore="MissingConstraints" />
 
             <EditText
@@ -139,7 +158,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginEnd="15dp"
                 android:backgroundTint="#D9D9D9"
                 android:hint="Contraseña"
@@ -157,55 +176,20 @@
                 android:layout_height="67dp"
                 android:layout_marginTop="15dp"
                 android:backgroundTint="#C23A3A"
-                android:text="Iniciar Sesion"
+                android:text="Registrarse"
                 android:textColor="@color/white"
                 android:textSize="15dp"
                 app:cornerRadius="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/Contenedor_1"
+                app:layout_constraintHorizontal_bias="0.502"
                 app:layout_constraintStart_toStartOf="@+id/Contenedor_1"
                 app:layout_constraintTop_toBottomOf="@+id/Register_Contraseña"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/ya_tienes_cuenta_register"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="48dp"
-                android:text="Olvidaste tu contraseña?"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/Contenedor_1"
-                app:layout_constraintStart_toStartOf="@+id/Contenedor_1"
-                app:layout_constraintTop_toBottomOf="@+id/button_Register"
-                app:layout_constraintVertical_bias="0.089"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/Click_aqui_Register"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:clickable="true"
-                android:text="Click Aqui"
-                android:textColor="#C23A3A"
-                android:textSize="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/Contenedor_1"
-                app:layout_constraintEnd_toEndOf="@+id/Contenedor_1"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/ya_tienes_cuenta_register"
-                app:layout_constraintTop_toBottomOf="@+id/button_Register"
-                app:layout_constraintVertical_bias="0.089"
+                app:layout_constraintVertical_bias="0.118"
                 tools:ignore="MissingConstraints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-
 
 </ScrollView>
