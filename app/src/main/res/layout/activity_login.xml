@@ -106,18 +106,20 @@
                 android:id="@+id/Name_App"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="28dp"
                 android:text="Bienvenido a Incidencias Manzanillo"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="30dp"
+                android:textSize="25dp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/Contenedor_1"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/Contenedor_1"
                 app:layout_constraintTop_toBottomOf="@+id/indicador_gris"
                 tools:ignore="MissingConstraints" />
 
             <EditText
-                android:id="@+id/Register_Correo"
+                android:id="@+id/LogIn_Correo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -135,7 +137,7 @@
                 tools:ignore="MissingConstraints" />
 
             <EditText
-                android:id="@+id/Register_Contraseña"
+                android:id="@+id/LogIn_Contraseña"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -149,10 +151,10 @@
                 app:layout_constraintEnd_toEndOf="@+id/Contenedor_1"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/Contenedor_1"
-                app:layout_constraintTop_toBottomOf="@+id/Register_Correo" />
+                app:layout_constraintTop_toBottomOf="@+id/LogIn_Correo" />
 
             <Button
-                android:id="@+id/button_Register"
+                android:id="@+id/button_sesion"
                 android:layout_width="159dp"
                 android:layout_height="67dp"
                 android:layout_marginTop="15dp"
@@ -163,11 +165,11 @@
                 app:cornerRadius="30dp"
                 app:layout_constraintEnd_toEndOf="@+id/Contenedor_1"
                 app:layout_constraintStart_toStartOf="@+id/Contenedor_1"
-                app:layout_constraintTop_toBottomOf="@+id/Register_Contraseña"
+                app:layout_constraintTop_toBottomOf="@+id/LogIn_Contraseña"
                 tools:ignore="MissingConstraints" />
 
             <TextView
-                android:id="@+id/ya_tienes_cuenta_register"
+                android:id="@+id/olvidaste_contraseña"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -177,12 +179,12 @@
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/Contenedor_1"
                 app:layout_constraintStart_toStartOf="@+id/Contenedor_1"
-                app:layout_constraintTop_toBottomOf="@+id/button_Register"
+                app:layout_constraintTop_toBottomOf="@+id/button_sesion"
                 app:layout_constraintVertical_bias="0.089"
                 tools:ignore="MissingConstraints" />
 
             <TextView
-                android:id="@+id/Click_aqui_Register"
+                android:id="@+id/Click_aqui_contraseña"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -193,16 +195,14 @@
                 app:layout_constraintBottom_toBottomOf="@+id/Contenedor_1"
                 app:layout_constraintEnd_toEndOf="@+id/Contenedor_1"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/ya_tienes_cuenta_register"
-                app:layout_constraintTop_toBottomOf="@+id/button_Register"
+                app:layout_constraintStart_toEndOf="@+id/olvidaste_contraseña"
+                app:layout_constraintTop_toBottomOf="@+id/button_sesion"
                 app:layout_constraintVertical_bias="0.089"
                 tools:ignore="MissingConstraints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
 
