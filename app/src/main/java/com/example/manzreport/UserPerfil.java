@@ -37,7 +37,7 @@ public class UserPerfil extends AppCompatActivity {
     FirebaseFirestore fStore;
     String userId;
     Button resendCode;
-    Button resetPassLocal,changeProfileImage;
+    Button resetPassLocal,changeProfileImage,buttonsalir;
     FirebaseUser user;
     ImageView profileImage;
     ImageButton atras;
@@ -53,6 +53,7 @@ public class UserPerfil extends AppCompatActivity {
         fullName = findViewById(R.id.profileName);
         email    = findViewById(R.id.profileEmail);
         resetPassLocal = findViewById(R.id.resetPasswordLocal);
+        buttonsalir = findViewById(R.id.button);
 
         profileImage = findViewById(R.id.profileImage);
         changeProfileImage = findViewById(R.id.changeProfile);
@@ -63,6 +64,15 @@ public class UserPerfil extends AppCompatActivity {
 
         userId = fAuth.getCurrentUser().getUid();
         user = fAuth.getCurrentUser();
+        buttonsalir.setOnClickListener(view ->{
+            fAuth.signOut();
+            startActivity(new Intent(UserPerfil.this, login.class));
+        });
+
+        if(fAuth.getCurrentUser() == null){
+            startActivity(new Intent(getApplicationContext(),login.class));
+            finish();
+        }//sacar usuario
 
         atras.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,6 +157,7 @@ public class UserPerfil extends AppCompatActivity {
 
 
     }
+<<<<<<< HEAD
 
 
     public void logout(View view) {
@@ -154,7 +165,25 @@ public class UserPerfil extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(),login.class));
         finish();
         System.exit(0);
+=======
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = fAuth.getCurrentUser();
+        if (user == null){
+            startActivity(new Intent(UserPerfil.this, Principal.class));
+        }//sacar usuario
+>>>>>>> 057dd9976e92f76cb6ec1bcc756d1464d634566b
     }
+
+
+
+
+    //public void logout(View view) {
+        //FirebaseAuth.getInstance().signOut();//logout
+       // startActivity(new Intent(getApplicationContext(),login.class));
+      //  finish();
+    //}
 
 
 }

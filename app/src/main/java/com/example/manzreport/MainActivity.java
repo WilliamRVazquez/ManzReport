@@ -62,6 +62,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(i);
             }
         });
+        if(fAuth.getCurrentUser() == null){
+            startActivity(new Intent(getApplicationContext(),login.class));
+            finish();
+        }
     }
 
 
