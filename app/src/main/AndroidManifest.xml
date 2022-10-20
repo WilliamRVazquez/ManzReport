@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.manzreport">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ManzReport"
         tools:targetApi="31">
+        <activity
+            android:name=".UserPerfil"
+            android:exported="false" />
         <activity
             android:name=".EditProfile"
             android:exported="false" />
@@ -38,13 +42,13 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Sing_up"
+            android:name=".Principal"
             android:exported="false" />
         <activity
             android:name=".login"
             android:exported="false" />
         <activity
-            android:name=".Principal"
+            android:name=".Sing_up"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

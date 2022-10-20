@@ -71,7 +71,7 @@
         app:layout_constraintVertical_bias="0.935" />
 
     <Button
-        android:id="@+id/btn_crear_reporte2"
+        android:id="@+id/btnPerfil"
         android:layout_width="60dp"
         android:layout_height="73dp"
         android:backgroundTint="#C23A3A"

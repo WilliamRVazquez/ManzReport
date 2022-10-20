@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,11 +18,14 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
-    Button btn_ver_reportes, btn_crear_reporte;
+    Button btn_ver_reportes, btn_crear_reporte, btnPerfil;
     Intent i;
     int op;
+
+    FirebaseAuth fAuth;
 
 
     @Override
@@ -30,6 +34,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
         btn_crear_reporte = (Button) findViewById(R.id.btn_crear_reporte);
         btn_ver_reportes = (Button) findViewById(R.id.btn_ver_reportes);
+        btnPerfil = (Button) findViewById(R.id.btnPerfil);
+        fAuth = FirebaseAuth.getInstance();
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -45,6 +52,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 i = new Intent(MainActivity.this,ver_reportes.class);
+                startActivity(i);
+            }
+        });
+        btnPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                i = new Intent(MainActivity.this,UserPerfil.class);
                 startActivity(i);
             }
         });
