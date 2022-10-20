@@ -159,7 +159,7 @@ public class Sing_up extends AppCompatActivity {
         FirebaseUser user = fAuth.getCurrentUser();
         if (user != null){
             startActivity(new Intent(Sing_up.this, MainActivity.class));
-        }//sacar usuario
+        }//sacar usuariodwdqwdw
     }
 
 }
