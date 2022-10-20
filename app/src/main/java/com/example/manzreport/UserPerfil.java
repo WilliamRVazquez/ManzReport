@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,12 +40,15 @@ public class UserPerfil extends AppCompatActivity {
     Button resetPassLocal,changeProfileImage;
     FirebaseUser user;
     ImageView profileImage;
+    ImageButton atras;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_perfil);
+        atras = (ImageButton) findViewById(R.id.atras_perfil_de_usuario);
+
         phone = findViewById(R.id.profilePhone);
         fullName = findViewById(R.id.profileName);
         email    = findViewById(R.id.profileEmail);
@@ -59,6 +63,14 @@ public class UserPerfil extends AppCompatActivity {
 
         userId = fAuth.getCurrentUser().getUid();
         user = fAuth.getCurrentUser();
+
+        atras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                return;
+            }
+        });
 
 
         DocumentReference documentReference = fStore.collection("users").document(userId);
