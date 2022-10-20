@@ -30,7 +30,6 @@ public class EditProfile extends AppCompatActivity {
 
     public static final String TAG = "TAG";
     EditText profileFullName,profileEmail,profilePhone;
-    ImageView profileImageView;
     ImageButton atras;
     Button saveBtn;
     FirebaseAuth fAuth;
@@ -67,10 +66,6 @@ public class EditProfile extends AppCompatActivity {
             }
         });
 
-        if(fAuth.getCurrentUser() == null){
-            startActivity(new Intent(getApplicationContext(),login.class));
-            finish();
-        }
 
 
 
@@ -95,8 +90,8 @@ public class EditProfile extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(EditProfile.this, "Perfil actualizado", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(),UserPerfil.class));
-                                finish();
+                                onBackPressed();
+                                return;
                             }
                         });
                         Toast.makeText(EditProfile.this, "Correo cambiado.", Toast.LENGTH_SHORT).show();
