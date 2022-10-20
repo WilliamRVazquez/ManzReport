@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class login extends AppCompatActivity {
     EditText mEmail,mPassword;
@@ -86,6 +87,10 @@ public class login extends AppCompatActivity {
 
             }
         });
+        if(fAuth.getCurrentUser() != null){
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            finish();
+        }
 
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,4 +143,13 @@ public class login extends AppCompatActivity {
 
 
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = fAuth.getCurrentUser();
+        if (user != null){
+            startActivity(new Intent(login.this, MainActivity.class));
+        }//sacar usuario
+    }
+
 }

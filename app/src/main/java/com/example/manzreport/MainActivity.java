@@ -62,10 +62,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(i);
             }
         });
-        if(fAuth.getCurrentUser() == null){
-            startActivity(new Intent(getApplicationContext(),login.class));
-            finish();
-        }
     }
 
 
@@ -85,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         googleMap.setMyLocationEnabled(true);
            }
+    public void onBackPressed() { moveTaskToBack(true); finish(); }
 
 
 }
