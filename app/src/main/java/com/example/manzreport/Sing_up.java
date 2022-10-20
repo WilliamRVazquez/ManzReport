@@ -20,10 +20,8 @@ public class Sing_up extends AppCompatActivity {
         btn_inisesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                i = new Intent(Sing_up.this,login.class);
-                startActivity(i);
-
-
+                onBackPressed();
+                return;
             }
         });
     }
