@@ -33,7 +33,7 @@ public class Principal extends AppCompatActivity {
             }
         });
     }
-
+    //codigo Para los permisos
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void verificarPermisos() {
         int  permiso_location_precisa = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
