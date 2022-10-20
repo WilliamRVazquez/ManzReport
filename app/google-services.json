@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "374987717508",
+    "project_id": "manzareport",
+    "storage_bucket": "manzareport.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374987717508:android:7c0bd20e9bf4efd9e97bd1",
+        "android_client_info": {
+          "package_name": "com.example.manzreport"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "374987717508-ga36o5o9re1ru2mrjvq5mk9nnbg4od3g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgS5ejJFiY99207mrjLHbQzNroX7nrmOI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "374987717508-ga36o5o9re1ru2mrjvq5mk9nnbg4od3g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374987717508:android:adb1c1e22642a800e97bd1",
+        "android_client_info": {
+          "package_name": "net.smallacademy.authenticatorapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "374987717508-ga36o5o9re1ru2mrjvq5mk9nnbg4od3g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgS5ejJFiY99207mrjLHbQzNroX7nrmOI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "374987717508-ga36o5o9re1ru2mrjvq5mk9nnbg4od3g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
