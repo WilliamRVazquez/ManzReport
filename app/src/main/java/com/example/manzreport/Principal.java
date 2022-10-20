@@ -13,11 +13,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Principal extends AppCompatActivity {
     Button ini;
     Intent i, j;
+    FirebaseAuth fAuth;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -38,7 +40,13 @@ public class Principal extends AppCompatActivity {
                 startActivity(j);
             }
         });
+        fAuth = FirebaseAuth.getInstance();
+        if(fAuth.getCurrentUser() != null){
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            finish();
+        }
     }
+
 
 
 

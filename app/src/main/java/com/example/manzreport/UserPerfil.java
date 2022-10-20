@@ -26,11 +26,12 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+
 import javax.annotation.Nullable;
 
 public class UserPerfil extends AppCompatActivity {
 
-    TextView fullName,email,phone,verifyMsg;
+    TextView fullName,email,phone;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
