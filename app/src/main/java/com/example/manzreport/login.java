@@ -52,17 +52,17 @@ public class login extends AppCompatActivity {
                 String password = mPassword.getText().toString().trim();
 
                 if(TextUtils.isEmpty(email)){
-                    mEmail.setError("Email is Required.");
+                    mEmail.setError("Correo requerido");
                     return;
                 }
 
                 if(TextUtils.isEmpty(password)){
-                    mPassword.setError("Contraseña requerida.");
+                    mPassword.setError("Contraseña requerida");
                     return;
                 }
 
                 if(password.length() < 6){
-                    mPassword.setError("la contraseña debe tener >= 6 Caracteres");
+                    mPassword.setError("la contraseña debe tener >= 6 caracteres");
                     return;
                 }
 
@@ -101,7 +101,7 @@ public class login extends AppCompatActivity {
                 final EditText resetMail = new EditText(v.getContext());
                 final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
                 passwordResetDialog.setTitle("Resetear contraseña?");
-                passwordResetDialog.setMessage("Enter Your Email To Received Reset Link.");
+                passwordResetDialog.setMessage("Escribe tu correo para enviar un link para reseteo contraseá");
                 passwordResetDialog.setView(resetMail);
 
                 passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {

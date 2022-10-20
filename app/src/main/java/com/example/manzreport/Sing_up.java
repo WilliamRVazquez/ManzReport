@@ -75,18 +75,27 @@ public class Sing_up extends AppCompatActivity {
                 final String fullName = mFullName.getText().toString();
                 final String phone    = mPhone.getText().toString();
 
-                if(TextUtils.isEmpty(email)){
-                    mEmail.setError("Email is Required.");
-                    return;
-                }
 
-                if(TextUtils.isEmpty(password)){
-                    mPassword.setError("Password is Required.");
-                    return;
-                }
 
-                if(password.length() < 6){
-                    mPassword.setError("Password Must be >= 6 Characters");
+                if(TextUtils.isEmpty(fullName)){
+                    mFullName.setError("Requiere Nombre");
+                    mFullName.requestFocus();
+                    return;
+                }else if(TextUtils.isEmpty(password)){
+                    mPassword.setError("Requiere Contraseña");
+                    mPassword.requestFocus();
+                    return;
+                }else if(password.length() < 6){
+                    mPassword.setError("La contraseña debe ser mayor a 6 caracteres");
+                    mPassword.requestFocus();
+                    return;
+                }else if(TextUtils.isEmpty(phone)){
+                    mPhone.setError("Requiere Telefono");
+                    mPhone.requestFocus();
+                    return;
+                }else if(TextUtils.isEmpty(email)){
+                    mEmail.setError("Requiere nombre");
+                    mEmail.requestFocus();
                     return;
                 }
 
