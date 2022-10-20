@@ -149,12 +149,11 @@ public class UserPerfil extends AppCompatActivity {
     }
 
 
-
-
     public void logout(View view) {
         FirebaseAuth.getInstance().signOut();//logout
         startActivity(new Intent(getApplicationContext(),login.class));
         finish();
+        System.exit(0);
     }
 
 

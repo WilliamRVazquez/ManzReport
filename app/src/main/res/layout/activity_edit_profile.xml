@@ -29,6 +29,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.555" />
 
+        <ImageButton
+            android:id="@+id/atras_edit_de_usuario"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:layout_marginStart="24dp"
+            android:background="@drawable/atras"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.513" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ public class EditProfile extends AppCompatActivity {
     public static final String TAG = "TAG";
     EditText profileFullName,profileEmail,profilePhone;
     ImageView profileImageView;
+    ImageButton atras;
     Button saveBtn;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -45,6 +47,8 @@ public class EditProfile extends AppCompatActivity {
         String email = data.getStringExtra("email");
         String phone = data.getStringExtra("phone");
 
+        atras = (ImageButton) findViewById(R.id.atras_edit_de_usuario);
+
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         user = fAuth.getCurrentUser();
@@ -53,6 +57,14 @@ public class EditProfile extends AppCompatActivity {
         profileEmail = findViewById(R.id.profileEmailAddress);
         profilePhone = findViewById(R.id.profilePhoneNo);
         saveBtn = findViewById(R.id.saveProfileInfo);
+
+        atras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                return;
+            }
+        });
 
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
