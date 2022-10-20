@@ -72,7 +72,7 @@ public class UserPerfil extends AppCompatActivity {
         if(fAuth.getCurrentUser() == null){
             startActivity(new Intent(getApplicationContext(),login.class));
             finish();
-        }
+        }//sacar usuario
 
         atras.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,8 +162,8 @@ public class UserPerfil extends AppCompatActivity {
         super.onStart();
         FirebaseUser user = fAuth.getCurrentUser();
         if (user == null){
-            startActivity(new Intent(UserPerfil.this, login.class));
-        }
+            startActivity(new Intent(UserPerfil.this, Principal.class));
+        }//sacar usuario
     }
 
 
