@@ -54,6 +54,11 @@ public class EditProfile extends AppCompatActivity {
         profilePhone = findViewById(R.id.profilePhoneNo);
         saveBtn = findViewById(R.id.saveProfileInfo);
 
+        if(fAuth.getCurrentUser() == null){
+            startActivity(new Intent(getApplicationContext(),login.class));
+            finish();
+        }
+
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
