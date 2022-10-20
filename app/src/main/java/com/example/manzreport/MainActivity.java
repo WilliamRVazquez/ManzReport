@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     Button btn_ver_reportes, btn_crear_reporte;
     Intent i;
+    int op;
 
 
     @Override
