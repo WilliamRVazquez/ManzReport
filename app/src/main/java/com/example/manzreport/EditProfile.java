@@ -1,5 +1,6 @@
 package com.example.manzreport;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -95,8 +96,8 @@ public class EditProfile extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(EditProfile.this, "Perfil actualizado", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(),UserPerfil.class));
-                                finish();
+                                onBackPressed();
+                                return;
                             }
                         });
                         Toast.makeText(EditProfile.this, "Correo cambiado.", Toast.LENGTH_SHORT).show();
