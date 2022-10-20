@@ -42,14 +42,15 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Principal"
-            android:exported="false" />
+            android:name=".Sing_up"
+            android:exported="false"
+            />
         <activity
             android:name=".login"
             android:exported="false" />
         <activity
-            android:name=".Sing_up"
-            android:exported="true">
+            android:name=".Principal"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

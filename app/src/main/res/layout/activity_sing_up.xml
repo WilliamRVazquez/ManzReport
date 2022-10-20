@@ -180,7 +180,7 @@
                 android:layout_marginEnd="15dp"
                 android:backgroundTint="#D9D9D9"
                 android:hint="Telefono"
-                android:inputType="textPassword"
+                android:inputType="phone"
                 android:textColor="@color/black"
                 android:textColorHint="#8C8C8C"
                 app:layout_constraintEnd_toEndOf="@+id/Contenedor_1"

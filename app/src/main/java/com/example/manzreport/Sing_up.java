@@ -49,6 +49,14 @@ public class Sing_up extends AppCompatActivity {
         mRegisterBtn= findViewById(R.id.button_Register);
         mLoginBtn   = findViewById(R.id.txtv_inisesion_btn);
 
+        mLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                return;
+            }
+        });
+
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         progressBar = findViewById(R.id.progressBar);
@@ -132,15 +140,6 @@ public class Sing_up extends AppCompatActivity {
                         }
                     }
                 });
-            }
-        });
-
-
-
-        mLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),login.class));
             }
         });
 
