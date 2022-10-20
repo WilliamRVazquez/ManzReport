@@ -157,15 +157,6 @@ public class UserPerfil extends AppCompatActivity {
 
 
     }
-<<<<<<< HEAD
-
-
-    public void logout(View view) {
-        FirebaseAuth.getInstance().signOut();//logout
-        startActivity(new Intent(getApplicationContext(),login.class));
-        finish();
-        System.exit(0);
-=======
     @Override
     protected void onStart() {
         super.onStart();
@@ -173,17 +164,16 @@ public class UserPerfil extends AppCompatActivity {
         if (user == null){
             startActivity(new Intent(UserPerfil.this, Principal.class));
         }//sacar usuario
->>>>>>> 057dd9976e92f76cb6ec1bcc756d1464d634566b
     }
 
 
 
 
     //public void logout(View view) {
-        //FirebaseAuth.getInstance().signOut();//logout
-       // startActivity(new Intent(getApplicationContext(),login.class));
-      //  finish();
-    //}
+    //FirebaseAuth.getInstance().signOut();//logout
+    // startActivity(new Intent(getApplicationContext(),login.class));
+    //  finish();
+//}
 
 
 }

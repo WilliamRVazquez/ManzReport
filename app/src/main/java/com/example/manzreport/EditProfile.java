@@ -58,7 +58,7 @@ public class EditProfile extends AppCompatActivity {
         profilePhone = findViewById(R.id.profilePhoneNo);
         saveBtn = findViewById(R.id.saveProfileInfo);
 
-<<<<<<< HEAD
+
         atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,12 +66,12 @@ public class EditProfile extends AppCompatActivity {
                 return;
             }
         });
-=======
+
         if(fAuth.getCurrentUser() == null){
             startActivity(new Intent(getApplicationContext(),login.class));
             finish();
         }
->>>>>>> 057dd9976e92f76cb6ec1bcc756d1464d634566b
+
 
 
         saveBtn.setOnClickListener(new View.OnClickListener() {

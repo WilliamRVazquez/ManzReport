@@ -44,6 +44,7 @@ public class Principal extends AppCompatActivity {
         if(fAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
             finish();
+
         }
     }
 
@@ -63,5 +64,8 @@ public class Principal extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
         }
     }
+
+
+    public void onBackPressed() { moveTaskToBack(true); finish(); } //codigo para cerrar la app all momento de darle para atras
 
 }
