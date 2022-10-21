@@ -65,10 +65,26 @@ public class UserPerfil extends AppCompatActivity {
         userId = fAuth.getCurrentUser().getUid();
         user = fAuth.getCurrentUser();
         buttonsalir.setOnClickListener(view ->{
-            fAuth.signOut();
-            startActivity(new Intent(UserPerfil.this, login.class));
+            AlertDialog.Builder alert = new AlertDialog.Builder(UserPerfil.this);
+            alert.setMessage("¿Deseas cerrar sesion?")
+                    .setCancelable(false)
+                    .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            fAuth.signOut();
+                            startActivity(new Intent(UserPerfil.this, login.class));
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog title = alert.create();
+            title.setTitle("Cerrar Sesion");
+            title.show();
         });
-
         if(fAuth.getCurrentUser() == null){
             startActivity(new Intent(getApplicationContext(),login.class));
             finish();
@@ -109,6 +125,7 @@ public class UserPerfil extends AppCompatActivity {
                 passwordResetDialog.setTitle("Reset Password ?");
                 passwordResetDialog.setMessage("Enter New Password > 6 Characters long.");
                 passwordResetDialog.setView(resetPassword);
+
 
                 passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
