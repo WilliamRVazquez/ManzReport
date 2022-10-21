@@ -59,7 +59,7 @@ public class Principal extends AppCompatActivity {
         int  permiso_location_precisa = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
         if( permiso_location_precisa == PackageManager.PERMISSION_GRANTED){
             //metodo de mandar mensajes
-            Toast.makeText(this, "Consedido", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Consedido", Toast.LENGTH_SHORT).show();
         }else{
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
         }

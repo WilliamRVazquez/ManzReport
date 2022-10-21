@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(miUbicacion));
                 CameraPosition cameraPosition = new CameraPosition.Builder()
                         .target(miUbicacion)
-                        .zoom(20) //para cambiar el zoom de hacercamiento
+                        .zoom(18) //para cambiar el zoom de hacercamiento
                         .bearing(90)
                         .tilt(45)
                         .build();

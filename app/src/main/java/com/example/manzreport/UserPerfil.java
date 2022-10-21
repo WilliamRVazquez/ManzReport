@@ -122,8 +122,8 @@ public class UserPerfil extends AppCompatActivity {
                 final EditText resetPassword = new EditText(v.getContext());
 
                 final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
-                passwordResetDialog.setTitle("Reset Password ?");
-                passwordResetDialog.setMessage("Enter New Password > 6 Characters long.");
+                passwordResetDialog.setTitle("Resetiar Contraseña ?");
+                passwordResetDialog.setMessage("Ingresa Nueva Contraseña > 6 Caracteres Minimo.");
                 passwordResetDialog.setView(resetPassword);
 
 
@@ -135,12 +135,12 @@ public class UserPerfil extends AppCompatActivity {
                         user.updatePassword(newPassword).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(UserPerfil.this, "Password Reset Successfully.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(UserPerfil.this, "Reseteo de Contraseña Completo.", Toast.LENGTH_SHORT).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(UserPerfil.this, "Password Reset Failed.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(UserPerfil.this, "Error al Cambiar la Contraseña.", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

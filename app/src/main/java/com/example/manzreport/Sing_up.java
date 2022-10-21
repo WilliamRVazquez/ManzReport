@@ -114,7 +114,7 @@ public class Sing_up extends AppCompatActivity {
                             fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast.makeText(Sing_up.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(Sing_up.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
@@ -159,7 +159,7 @@ public class Sing_up extends AppCompatActivity {
         FirebaseUser user = fAuth.getCurrentUser();
         if (user != null){
             startActivity(new Intent(Sing_up.this, MainActivity.class));
-        }//sacar usuariodwdqwdw
+        }//sacar usuario
     }
 
 }
