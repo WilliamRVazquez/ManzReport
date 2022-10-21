@@ -19,7 +19,7 @@ tools:context=".Principal">
         android:layout_width="275dp"
         android:layout_height="275dp"
         android:layout_gravity="center"
-        android:src="@drawable/bguniversal2"
+        android:src="@drawable/logo_bueno_transparente"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
