@@ -26,7 +26,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 public class Sing_up extends AppCompatActivity {
     public static final String TAG = "TAG";
@@ -37,11 +36,6 @@ public class Sing_up extends AppCompatActivity {
     ProgressBar progressBar;
     FirebaseFirestore fStore;
     String userID;
-
-    // Contraseña de 8-20 caracteres que requiere números y letras de ambos casos
-    private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z]).{8,20}$";
-
-    private static final Pattern PASSWORD_PATTERN = Pattern.compile(PASSWORD_REGEX);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,12 +75,18 @@ public class Sing_up extends AppCompatActivity {
                 final String fullName = mFullName.getText().toString();
                 final String phone    = mPhone.getText().toString();
 
+
+
                 if(TextUtils.isEmpty(fullName)){
                     mFullName.setError("Requiere Nombre");
                     mFullName.requestFocus();
                     return;
                 }else if(TextUtils.isEmpty(password)){
                     mPassword.setError("Requiere Contraseña");
+                    mPassword.requestFocus();
+                    return;
+                }else if(password.length() < 8){
+                    mPassword.setError("La contraseña debe ser mayor a 8 caracteres");
                     mPassword.requestFocus();
                     return;
                 }else if(TextUtils.isEmpty(phone)){
@@ -97,54 +97,6 @@ public class Sing_up extends AppCompatActivity {
                     mEmail.setError("Requiere nombre");
                     mEmail.requestFocus();
                     return;
-<<<<<<< HEAD
-                }else if(PASSWORD_PATTERN.matcher(password).matches()){
-                    // register the user in firebase
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                // send verification link
-                                FirebaseUser fuser = fAuth.getCurrentUser();
-                                fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        //Toast.makeText(Sing_up.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
-                                    }
-                                });
-
-                                Toast.makeText(Sing_up.this, "User Created.", Toast.LENGTH_SHORT).show();
-                                userID = fAuth.getCurrentUser().getUid();
-                                DocumentReference documentReference = fStore.collection("users").document(userID);
-                                Map<String,Object> user = new HashMap<>();
-                                user.put("fName",fullName);
-                                user.put("email",email);
-                                user.put("phone",phone);
-                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "onSuccess: user Profile is created for "+ userID);
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: " + e.toString());
-                                    }
-                                });
-                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-
-                            }else {
-                                Toast.makeText(Sing_up.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                progressBar.setVisibility(View.GONE);
-                            }
-=======
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
@@ -194,13 +146,9 @@ public class Sing_up extends AppCompatActivity {
                         }else {
                             Toast.makeText(Sing_up.this, "Error ! El Correo ya esta registrado" , Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
->>>>>>> 409bd898dfbb75e7ee2c77ed205478e975f2fe4a
                         }
-                    });
-                }else{
-                    mPassword.setError("No cumple con los requerimientos.");
-                    mPassword.requestFocus();
-                }
+                    }
+                });
             }
         });
 
