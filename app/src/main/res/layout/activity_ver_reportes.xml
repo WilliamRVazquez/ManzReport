@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,6 +10,32 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Listado de Reportes"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:divider="#C3BCBC"
+            android:dividerHeight="1dp"
+            android:theme="@style/listviewcolor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+
+            />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -46,108 +72,11 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Listado de Reportes"
-            android:textSize="20dp"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            android:stretchColumns="1"
-            >
-
-            <TableRow>
-                <TextView
-                    android:textColor="@color/black"
-                    android:text="N°de solicitud"
-                    android:padding="3dip" />
-
-                <TextView
-                    android:layout_width="94dp"
-                    android:gravity="center"
-                    android:padding="3dip"
-                    android:text="Estado"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="114dp"
-                    android:gravity="center"
-                    android:padding="3dip"
-                    android:text="Detalles"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="88dp"
-                    android:gravity="center"
-                    android:padding="3dip"
-                    android:text="Tipo"
-                    android:textColor="@color/black" />
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_height="match_parent"
-                    android:hint="1°"
-                    android:padding="3dip"
-                    android:text=""
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textColorHint="#B9C3BC" />
-
-                <TextView
-                    android:layout_width="94dp"
-                    android:gravity="center"
-                    android:padding="3dip"
-                    android:text=""
-                    android:hint="confirmado/rechazado"
-                    android:textColorHint="#B9C3BC"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="114dp"
-                    android:gravity="center"
-                    android:padding="3dip"
-                    android:text=""
-                    android:hint="Calle con baches"
-                    android:textColorHint="#B9C3BC"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="88dp"
-                    android:gravity="center"
-                    android:padding="3dip"
-                    android:text=""
-                    android:hint="vial"
-                    android:textColorHint="#B9C3BC"
-                    android:textColor="@color/black" />
-            </TableRow>
-
-
-
-
-
-        </TableLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 

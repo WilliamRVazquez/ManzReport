@@ -123,7 +123,7 @@ public class Sing_up extends AppCompatActivity {
                                 }
                             });
 
-                            Toast.makeText(Sing_up.this, "User Created.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Sing_up.this, "Registrado.", Toast.LENGTH_SHORT).show();
                             userID = fAuth.getCurrentUser().getUid();
                             DocumentReference documentReference = fStore.collection("users").document(userID);
                             Map<String,Object> user = new HashMap<>();
@@ -144,7 +144,7 @@ public class Sing_up extends AppCompatActivity {
                             startActivity(new Intent(getApplicationContext(),MainActivity.class));
 
                         }else {
-                            Toast.makeText(Sing_up.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Sing_up.this, "Error ! El Correo ya esta registrado" , Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }

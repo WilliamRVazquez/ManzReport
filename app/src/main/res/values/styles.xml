@@ -4,6 +4,10 @@
     <style name="swichcolor">
         <item name="colorControlActivated">#CF311B</item>
             </style>
+    
+    <style name="listviewcolor">
+        <item name="android:textColor">@color/black</item>
+    </style>
 
     //android:checked=""
     android:thumbTint=""
