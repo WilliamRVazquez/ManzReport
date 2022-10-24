@@ -85,8 +85,8 @@ public class Sing_up extends AppCompatActivity {
                     mPassword.setError("Requiere Contraseña");
                     mPassword.requestFocus();
                     return;
-                }else if(password.length() < 6){
-                    mPassword.setError("La contraseña debe ser mayor a 6 caracteres");
+                }else if(password.length() < 8){
+                    mPassword.setError("La contraseña debe ser mayor a 8 caracteres");
                     mPassword.requestFocus();
                     return;
                 }else if(TextUtils.isEmpty(phone)){
