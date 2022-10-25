@@ -72,7 +72,6 @@ public class Sing_up extends AppCompatActivity {
             finish();
         }
 
-
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +106,6 @@ public class Sing_up extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
 
                     // register the user in firebase
-
                     fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -147,7 +145,7 @@ public class Sing_up extends AppCompatActivity {
                                     }
                                 });
                                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
-
+                                finish();
                             }else {
                                 Toast.makeText(Sing_up.this, "Error ! El Correo ya esta registrado" , Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
