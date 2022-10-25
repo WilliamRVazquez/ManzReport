@@ -38,7 +38,7 @@ public class Sing_up extends AppCompatActivity {
     FirebaseFirestore fStore;
     String userID;
 
-    // Contraseña de 4-8 caracteres que requiere números y letras de ambos casos
+    // Contraseña de 8-20 caracteres que requiere números y letras de ambos casos
     private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z]).{8,20}$";
 
     private static final Pattern PASSWORD_PATTERN = Pattern.compile(PASSWORD_REGEX);
