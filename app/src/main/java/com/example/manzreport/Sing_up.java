@@ -128,8 +128,10 @@ public class Sing_up extends AppCompatActivity {
 
                                 Toast.makeText(Sing_up.this, "Registrado.", Toast.LENGTH_SHORT).show();
                                 userID = fAuth.getCurrentUser().getUid();
+                                String id = fAuth.getCurrentUser().getUid();
                                 DocumentReference documentReference = fStore.collection("users").document(userID);
                                 Map<String,Object> user = new HashMap<>();
+                                user.put("Id",id);
                                 user.put("fName",fullName);
                                 user.put("email",email);
                                 user.put("phone",phone);
