@@ -26,15 +26,12 @@ public class Principal extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    int REQUEST_CODE = 200;
-    @RequiresApi(api = Build.VERSION_CODES.M)
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
         //ini = (Button) findViewById(R.id.sesioniniciar);
-        verificarPermisos();
+
 
         fAuth = FirebaseAuth.getInstance();
         if(fAuth.getCurrentUser() != null){
@@ -70,16 +67,7 @@ public class Principal extends AppCompatActivity {
 
     //codigo Para los permisos
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void verificarPermisos() {
-        int  permiso_location_precisa = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
-        if( permiso_location_precisa == PackageManager.PERMISSION_GRANTED){
-            //metodo de mandar mensajes
-            //Toast.makeText(this, "Consedido", Toast.LENGTH_SHORT).show();
-        }else{
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
-        }
-    }
+
 
 
 

@@ -1,7 +1,10 @@
 package com.example.manzreport;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,8 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,12 +34,14 @@ public class login extends AppCompatActivity {
     TextView mCreateBtn,forgotTextLink;
     ProgressBar progressBar;
     FirebaseAuth fAuth;
+    int REQUEST_CODE = 200;
 
-
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        verificarPermisos();
 
         mEmail = findViewById(R.id.LogIn_Correo);
         mPassword = findViewById(R.id.LogIn_Contraseña);
@@ -151,5 +158,18 @@ public class login extends AppCompatActivity {
             startActivity(new Intent(login.this, MainActivity.class));
         }//sacar usuario
     }
+    // apartado para verificar permisos y pedirlos
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void verificarPermisos() {
+        int  permiso_location_precisa = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        if( permiso_location_precisa == PackageManager.PERMISSION_GRANTED){
+            //metodo de mandar mensajes
+            //Toast.makeText(this, "Consedido", Toast.LENGTH_SHORT).show();
+        }else{
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
+        }
+    }
+
+
 
 }
