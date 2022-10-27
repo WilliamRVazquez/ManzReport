@@ -116,7 +116,7 @@
 
 
         <EditText
-            android:id="@+id/editTextTextPersonName2"
+            android:id="@+id/DescReport"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
@@ -146,7 +146,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+            app:layout_constraintTop_toBottomOf="@+id/DescReport" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -161,7 +161,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
@@ -175,6 +175,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <Button
+            android:id="@+id/btn_enviar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
@@ -189,7 +190,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.944"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button"
+            app:layout_constraintTop_toBottomOf="@+id/btn_image"
             app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
