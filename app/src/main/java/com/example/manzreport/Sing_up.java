@@ -79,6 +79,8 @@ public class Sing_up extends AppCompatActivity {
                 String password = mPassword.getText().toString().trim();
                 final String fullName = mFullName.getText().toString();
                 final String phone    = mPhone.getText().toString();
+                int roln = 1;
+                String rol = String.valueOf(roln);
 
 
 
@@ -128,11 +130,14 @@ public class Sing_up extends AppCompatActivity {
 
                                 Toast.makeText(Sing_up.this, "Registrado.", Toast.LENGTH_SHORT).show();
                                 userID = fAuth.getCurrentUser().getUid();
+                                String id = fAuth.getCurrentUser().getUid();
                                 DocumentReference documentReference = fStore.collection("users").document(userID);
                                 Map<String,Object> user = new HashMap<>();
+                                user.put("Id",id);
                                 user.put("fName",fullName);
                                 user.put("email",email);
                                 user.put("phone",phone);
+                                user.put("Rol",rol);
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
