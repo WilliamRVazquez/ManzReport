@@ -91,7 +91,8 @@ public class EditProfile extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(EditProfile.this, "Perfil actualizado", Toast.LENGTH_SHORT).show();
-                                onBackPressed();
+                                //onBackPressed();
+                                finish();
                                 return;
                             }
                         });

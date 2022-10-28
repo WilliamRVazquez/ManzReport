@@ -55,12 +55,13 @@
 
             <TextView
                 android:id="@+id/txtv_inisesion"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
                 android:text="Inicio De Sesion"
                 android:textColor="@color/black"
                 android:textSize="30dp"
+                android:gravity="center"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +90,7 @@
                 android:text="Bienvenido a Reportes Manzanillo"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="25dp"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

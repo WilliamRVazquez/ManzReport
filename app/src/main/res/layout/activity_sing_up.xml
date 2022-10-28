@@ -56,10 +56,11 @@
 
             <TextView
                 android:id="@+id/txtv_register"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="Registrate"
+                android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="30dp"
                 android:textStyle="bold"
@@ -89,7 +90,7 @@
                 android:text="Bienvenido a Incidencias Manzanillo"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="25dp"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
