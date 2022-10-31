@@ -88,7 +88,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
                 return;
             }
         });
-    
+
         btn_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
