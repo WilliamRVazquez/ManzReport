@@ -8,9 +8,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class crear_reportes extends AppCompatActivity {
+public class crear_reportes extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     ImageButton atras;
     EditText ubicacion, DescReport;
 
@@ -35,6 +38,13 @@ public class crear_reportes extends AppCompatActivity {
     String storage_path = "report/*";
     String download_uri;
     String uniqueId = null;
+
+    Spinner report;
+
+    String [] opciones = {"Tipo de incidencia","Capdam","Proteccion civil","Jardineria","Mantenimiento publico"};
+
+    String item;
+
 
     Button btn_image, btn_enviar;
 
@@ -59,6 +69,14 @@ public class crear_reportes extends AppCompatActivity {
         ubicacion = (EditText) findViewById(R.id.ubicacion_manual);
         DescReport = (EditText) findViewById(R.id.DescReport);
 
+        report = (Spinner)findViewById(R.id.spinreport);
+        ArrayAdapter<String> aa = new ArrayAdapter<String>(crear_reportes.this,
+                android.R.layout.simple_dropdown_item_1line, opciones);
+        report.setAdapter(aa);
+        report.setOnItemSelectedListener(this);
+
+
+
         mAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         mfirestore = FirebaseFirestore.getInstance();
@@ -70,6 +88,7 @@ public class crear_reportes extends AppCompatActivity {
                 return;
             }
         });
+    
         btn_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,16 +96,25 @@ public class crear_reportes extends AppCompatActivity {
 
             }
         });
+
+
+
         btn_enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String ubireport = ubicacion.getText().toString().trim();
                 String desreporte = DescReport.getText().toString().trim();
 
-                if(ubireport.isEmpty() && desreporte.isEmpty()){
-                    Toast.makeText(getApplicationContext(), "Ingresar los datos", Toast.LENGTH_SHORT).show();
-                }else{
-                    postReport(ubireport, desreporte);
+                if(item.equals("Tipo de incidencia")){
+                    Toast.makeText(getApplicationContext(), "Escoger el tipo de incidencia", Toast.LENGTH_SHORT).show();
+                }else if (ubireport.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Ingresar ubicacion del reporte", Toast.LENGTH_SHORT).show();
+                }
+                else if (desreporte.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Ingresar descripccion del reporte", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    postReport(ubireport, desreporte, item);
                 }
             }
         });
@@ -132,13 +160,18 @@ public class crear_reportes extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             download_uri = uri.toString();
 
+
+
                             Map<String, Object> map = new HashMap<>();
                             map.put("id_user", idUser);
                             map.put("photo", download_uri);
                             map.put("id", uniqueId);
-                            map.put("ubicacion", ubireport);
-                            map.put("Descripcion", desreporte);
+                            map.put("ubicacion", "");
+                            map.put("Descripcion", "");
+                            map.put("Tipo reporte", "");
                             mfirestore.collection("Reportes").document(uniqueId).set(map);
+                            Toast.makeText(crear_reportes.this, "Se agrego la foto", Toast.LENGTH_SHORT).show();
+                            btn_image.setVisibility(View.GONE);
 
                             
                         }
@@ -153,11 +186,12 @@ public class crear_reportes extends AppCompatActivity {
         });
     }
 
-    private void postReport(String ubireport, String desreporte) {
+    private void postReport(String ubireport, String desreporte, String item) {
 
         Map<String, Object> map = new HashMap<>();
         map.put("ubicacion", ubireport);
         map.put("Descripcion", desreporte);
+        map.put("Tipo reporte", item);
 
         mfirestore.collection("Reportes").document(uniqueId).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -169,8 +203,7 @@ public class crear_reportes extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), "Reporte generado", Toast.LENGTH_SHORT).show();
-                finish();
+                Toast.makeText(getApplicationContext(), "Agrege una imagen  o espere a que cargue", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -180,5 +213,15 @@ public class crear_reportes extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         uniqueId = UUID.randomUUID().toString();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+        item = report.getSelectedItem().toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
