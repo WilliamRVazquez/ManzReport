@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -37,9 +38,13 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
     StorageReference storageReference;
     String storage_path = "report/*";
     String download_uri;
-    String uniqueId = null;
+
+    LinearLayout linearbtn;
+    Button btnedit, btndelete;
 
     Spinner report;
+
+    String editSi = "";
 
     String [] opciones = {"Tipo de incidencia","Capdam","Proteccion civil","Jardineria","Mantenimiento publico"};
 
@@ -66,6 +71,11 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
         atras = (ImageButton) findViewById(R.id.atras_de_crear_reporte);
         btn_enviar = (Button) findViewById(R.id.btn_enviar);
         btn_image = (Button) findViewById(R.id.btn_image);
+        linearbtn = (LinearLayout) findViewById(R.id.layoutbtn);
+        btnedit = (Button) findViewById(R.id.btnEdit);
+        btndelete = (Button) findViewById(R.id.btnRemove);
+
+
         ubicacion = (EditText) findViewById(R.id.ubicacion_manual);
         DescReport = (EditText) findViewById(R.id.DescReport);
 
@@ -92,11 +102,42 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
         btn_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String idUser = mAuth.getCurrentUser().getUid();
+                DocumentReference id = mfirestore.collection("Reportes").document();
+
+                Map<String, Object> map = new HashMap<>();
+                map.put("id_user", idUser);
+                map.put("photo", "");
+                map.put("id", id.getId());
+                map.put("ubicacion", "");
+                map.put("Descripcion", "");
+                map.put("Tipo reporte", "");
+                mfirestore.collection("Reportes").document(id.getId()).set(map);
+                idd = id.getId();
                 uploadPhoto();
+            }
+        });
+        btndelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mfirestore.collection("Reportes").document(idd).delete();
+                Toast.makeText(crear_reportes.this, "Foto eliminada", Toast.LENGTH_SHORT).show();
+                linearbtn.setVisibility(View.GONE);
+                btn_image.setVisibility(View.VISIBLE);
+
 
             }
         });
+        btnedit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uploadPhoto();
+                editSi = "SI";
+                linearbtn.setVisibility(View.VISIBLE);
 
+
+            }
+        });
 
 
         btn_enviar.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +147,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
                 String desreporte = DescReport.getText().toString().trim();
 
                 if(item.equals("Tipo de incidencia")){
-                    Toast.makeText(getApplicationContext(), "Escoger el tipo de incidencia", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Escoga el tipo de incidencia", Toast.LENGTH_SHORT).show();
                 }else if (ubireport.isEmpty()){
                     Toast.makeText(getApplicationContext(), "Ingresar ubicacion del reporte", Toast.LENGTH_SHORT).show();
                 }
@@ -121,11 +162,16 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
 
     }
 
+
     private void uploadPhoto() {
+
         Intent i = new Intent(Intent.ACTION_PICK);
         i.setType("image/*");
 
+
         startActivityForResult(i, COD_SEL_IMAGE);
+        linearbtn.setVisibility(View.VISIBLE);
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -135,16 +181,17 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
                 String ubireport = ubicacion.getText().toString().trim();
                 String desreporte = DescReport.getText().toString().trim();
                 subirPhoto(image_url ,ubireport, desreporte);
+                linearbtn.setVisibility(View.VISIBLE);
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void subirPhoto(Uri image_url, String ubireport, String desreporte) {
-        String rute_storage_photo = storage_path + "" + photo + "" + mAuth.getUid() +""+ uniqueId;
+        String rute_storage_photo = storage_path + "" + photo + "" + mAuth.getUid() +""+ idd;
         StorageReference reference = storageReference.child(rute_storage_photo);
 
-        String idUser = mAuth.getCurrentUser().getUid();
+
 
 
 
@@ -159,21 +206,26 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
                         @Override
                         public void onSuccess(Uri uri) {
                             download_uri = uri.toString();
+                            if (editSi.equals("SI")){
+                                Map<String, Object> map = new HashMap<>();
+
+                                map.put("photo", download_uri);
+
+                                mfirestore.collection("Reportes").document(idd).update(map);
+                                Toast.makeText(crear_reportes.this, "Se edito la imagen", Toast.LENGTH_SHORT).show();
+                                linearbtn.setVisibility(View.VISIBLE);
+                                btn_image.setVisibility(View.GONE);
+                            }else{
+                                Map<String, Object> map = new HashMap<>();
+                                map.put("photo", download_uri);
+                                mfirestore.collection("Reportes").document(idd).update(map);
+                                Toast.makeText(crear_reportes.this, "Se agrego la imagen", Toast.LENGTH_SHORT).show();
+                                btn_image.setVisibility(View.GONE);
+                                linearbtn.setVisibility(View.VISIBLE);
+
+                            }
 
 
-
-                            Map<String, Object> map = new HashMap<>();
-                            map.put("id_user", idUser);
-                            map.put("photo", download_uri);
-                            map.put("id", uniqueId);
-                            map.put("ubicacion", "");
-                            map.put("Descripcion", "");
-                            map.put("Tipo reporte", "");
-                            mfirestore.collection("Reportes").document(uniqueId).set(map);
-                            Toast.makeText(crear_reportes.this, "Se agrego la foto", Toast.LENGTH_SHORT).show();
-                            btn_image.setVisibility(View.GONE);
-
-                            
                         }
                     });
                 }
@@ -193,7 +245,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
         map.put("Descripcion", desreporte);
         map.put("Tipo reporte", item);
 
-        mfirestore.collection("Reportes").document(uniqueId).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+        mfirestore.collection("Reportes").document(idd).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(getApplicationContext(), "Reporte creado exitosamente", Toast.LENGTH_SHORT).show();
@@ -212,7 +264,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
     @Override
     protected void onStart() {
         super.onStart();
-        uniqueId = UUID.randomUUID().toString();
+        linearbtn.setVisibility(View.GONE);
     }
 
     @Override

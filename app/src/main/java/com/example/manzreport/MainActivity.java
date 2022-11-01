@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 i = new Intent(MainActivity.this,crear_reportes.class);
+
                 startActivity(i);
             }
         });
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 i = new Intent(MainActivity.this,ver_reportes.class);
+
                 startActivity(i);
             }
         });
