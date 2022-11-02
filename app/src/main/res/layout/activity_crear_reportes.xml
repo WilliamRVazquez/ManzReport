@@ -172,8 +172,8 @@
             android:layout_marginTop="20dp">
 
             <Button
-<<<<<<< HEAD
-=======
+
+
                 android:id="@+id/btnEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -190,7 +190,6 @@
                 android:layout_height="wrap_content" />
 
             <Button
->>>>>>> 5e0b35f83e2849c16f9270bbf351b5d179b3f631
                 android:id="@+id/btnRemove"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
