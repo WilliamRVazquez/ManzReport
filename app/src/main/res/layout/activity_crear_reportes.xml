@@ -178,7 +178,10 @@
                 android:text="EDIT"
                 android:textColor="@color/white"
                 app:backgroundTint="#0971C5"
-                app:cornerRadius="30dp"/>
+                app:cornerRadius="30dp"
+                app:icon="@drawable/cambio"
+                app:iconGravity="textStart"
+                app:iconTint="@color/white"/>
 
             <Space
                 android:layout_width="wrap_content"
@@ -191,7 +194,10 @@
                 android:text="DELETE"
                 android:textColor="@color/white"
                 app:backgroundTint="#C23A3A"
-                app:cornerRadius="30dp"/>
+                app:cornerRadius="30dp"
+                app:icon="@drawable/delete"
+                app:iconGravity="textStart"
+                app:iconTint="@color/white"/>
 
         </LinearLayout>
 
@@ -226,7 +232,7 @@
             app:layout_constraintHorizontal_bias="0.944"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_image"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
