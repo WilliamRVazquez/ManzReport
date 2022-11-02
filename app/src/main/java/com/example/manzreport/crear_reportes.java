@@ -1,10 +1,15 @@
 package com.example.manzreport;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +30,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -48,10 +54,10 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
     LinearLayout linearbtn;
     Button btndelete;
     //Button btnedit;
-
+    String show = "";
     Spinner report;
 
-    String editSi = "";
+    String exitLoad = "";
 
     String [] opciones = {"-","Capdam","Proteccion civil","Jardineria","Mantenimiento publico"};
 
@@ -100,13 +106,10 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
         storageReference = FirebaseStorage.getInstance().getReference();
         mfirestore = FirebaseFirestore.getInstance();
 
-        atras.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-                return;
-            }
+        atras.setOnClickListener(view ->{
+            onBackPressed();
         });
+
 
         btn_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,9 +124,9 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
             public void onClick(View view) {
                 mfirestore.collection("Reportes").document(idd).delete();
                 Toast.makeText(crear_reportes.this, "Foto eliminada", Toast.LENGTH_SHORT).show();
-                linearbtn.setVisibility(View.GONE);
+                linearbtn.setVisibility(GONE);
                 btn_image.setVisibility(View.VISIBLE);
-                imageView.setVisibility(View.GONE);
+                imageView.setVisibility(GONE);
 
 
             }
@@ -144,7 +147,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
                 String ubireport = ubicacion.getText().toString().trim();
                 String desreporte = DescReport.getText().toString().trim();
 
-                if(item.equals("Tipo de incidencia")){
+                if(item.equals("-")){
                     Toast.makeText(getApplicationContext(), "Escoga el tipo de incidencia", Toast.LENGTH_SHORT).show();
                 }else if (ubireport.isEmpty()){
                     Toast.makeText(getApplicationContext(), "Ingresar ubicacion del reporte", Toast.LENGTH_SHORT).show();
@@ -185,6 +188,8 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
     private void subirPhoto(Uri image_url, String ubireport, String desreporte) {
         progressDialog.setMessage("Añadiendo la imagen");
         progressDialog.show();
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
         String idUser = mAuth.getCurrentUser().getUid();
         DocumentReference id = mfirestore.collection("Reportes").document();
 
@@ -195,6 +200,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
         map.put("ubicacion", "");
         map.put("Descripcion", "");
         map.put("Tipo reporte", "");
+        exitLoad = "SI";
         mfirestore.collection("Reportes").document(id.getId()).set(map);
         idd = id.getId();
         String rute_storage_photo = storage_path + "" + photo + "" + mAuth.getUid() +""+ idd;
@@ -216,10 +222,11 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
                             map.put("photo", download_uri);
                             mfirestore.collection("Reportes").document(idd).update(map);
                             imageView.setVisibility(View.VISIBLE);
-                            btn_image.setVisibility(View.GONE);
-                            linearbtn.setVisibility(View.VISIBLE);
+                            btn_image.setVisibility(GONE);
+
                             btn_enviar.setVisibility(View.VISIBLE);
                             getimage(idd);
+                            show = "ok";
 
                             progressDialog.dismiss();
                             Toast.makeText(crear_reportes.this, "Se agrego la imagen", Toast.LENGTH_SHORT).show();
@@ -300,8 +307,12 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
     @Override
     protected void onStart() {
         super.onStart();
-        linearbtn.setVisibility(View.GONE);
-        btn_enviar.setVisibility(View.GONE);
+        linearbtn.setVisibility(GONE);
+        btn_enviar.setVisibility(GONE);
+        if (show.equals("ok")){
+            linearbtn.setVisibility(VISIBLE);
+            btn_enviar.setVisibility(VISIBLE);
+        }
     }
 
     @Override
@@ -313,4 +324,33 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
+    @Override
+    public void onBackPressed() {
+        if (exitLoad.equals("SI")){
+            AlertDialog.Builder myBulid = new AlertDialog.Builder(this);
+            myBulid.setMessage("En verdad deseas salir de la APP");
+            myBulid.setTitle("Mensaje");
+            myBulid.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    mfirestore.collection("Reportes").document(idd).delete();
+                    finish();
+                }
+            });
+            myBulid.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog dialog = myBulid.create();
+            dialog.show();
+
+        }else{
+            super.onBackPressed();
+        }
+
+    }
+
 }

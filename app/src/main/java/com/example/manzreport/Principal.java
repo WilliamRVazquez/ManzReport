@@ -71,7 +71,10 @@ public class Principal extends AppCompatActivity {
 
 
 
-    public void onBackPressed() { moveTaskToBack(true); finish(); } //codigo para cerrar la app all momento de darle para atras
+    public void onBackPressed() {
+        moveTaskToBack(true);
+        finish();
+    } //codigo para cerrar la app all momento de darle para atras
 
 
 
