@@ -46,7 +46,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
 
     String editSi = "";
 
-    String [] opciones = {"Tipo de incidencia","Capdam","Proteccion civil","Jardineria","Mantenimiento publico"};
+    String [] opciones = {"-","Capdam","Proteccion civil","Jardineria","Mantenimiento publico"};
 
     String item;
 
@@ -81,7 +81,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
 
         report = (Spinner)findViewById(R.id.spinreport);
         ArrayAdapter<String> aa = new ArrayAdapter<String>(crear_reportes.this,
-                android.R.layout.simple_dropdown_item_1line, opciones);
+                R.layout.listviewresours, opciones);
         report.setAdapter(aa);
         report.setOnItemSelectedListener(this);
 
