@@ -171,20 +171,6 @@
             android:id="@+id/layoutbtn"
             android:layout_marginTop="20dp">
 
-            <Button
-
-
-                android:id="@+id/btnEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="EDIT"
-                android:textColor="@color/white"
-                app:backgroundTint="#0971C5"
-                app:cornerRadius="30dp"
-                app:icon="@drawable/cambio"
-                app:iconGravity="textStart"
-                app:iconTint="@color/white"/>
-
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
