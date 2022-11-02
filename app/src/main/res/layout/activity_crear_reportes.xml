@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Tipo de reporte:"
+            android:text="Tipo de Incidencia:"
             android:textSize="15dp"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
@@ -172,11 +172,35 @@
             android:layout_marginTop="20dp">
 
             <Button
+<<<<<<< HEAD
+=======
+                android:id="@+id/btnEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EDIT"
+                android:textColor="@color/white"
+                app:backgroundTint="#0971C5"
+                app:cornerRadius="30dp"
+                app:icon="@drawable/cambio"
+                app:iconGravity="textStart"
+                app:iconTint="@color/white"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+>>>>>>> 5e0b35f83e2849c16f9270bbf351b5d179b3f631
                 android:id="@+id/btnRemove"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="DELETE"
-                app:backgroundTint="#EAC90707" />
+                android:textColor="@color/white"
+                app:backgroundTint="#C23A3A"
+                app:cornerRadius="30dp"
+                app:icon="@drawable/delete"
+                app:iconGravity="textStart"
+                app:iconTint="@color/white"/>
 
         </LinearLayout>
 
@@ -211,7 +235,7 @@
             app:layout_constraintHorizontal_bias="0.944"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_image"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
