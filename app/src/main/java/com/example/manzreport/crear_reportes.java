@@ -198,8 +198,8 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
         map.put("photo", "");
         map.put("id", id.getId());
         map.put("ubicacion", "");
-        map.put("Descripcion", "");
-        map.put("Tipo reporte", "");
+        map.put("descripcion", "");
+        map.put("tiporeporte", "");
         exitLoad = "SI";
         mfirestore.collection("Reportes").document(id.getId()).set(map);
         idd = id.getId();
@@ -223,7 +223,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
                             mfirestore.collection("Reportes").document(idd).update(map);
                             imageView.setVisibility(View.VISIBLE);
                             btn_image.setVisibility(GONE);
-
+                            linearbtn.setVisibility(VISIBLE);
                             btn_enviar.setVisibility(View.VISIBLE);
                             getimage(idd);
                             show = "ok";
@@ -285,8 +285,8 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
 
         Map<String, Object> map = new HashMap<>();
         map.put("ubicacion", ubireport);
-        map.put("Descripcion", desreporte);
-        map.put("Tipo reporte", item);
+        map.put("descripcion", desreporte);
+        map.put("tiporeporte", item);
 
         mfirestore.collection("Reportes").document(idd).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
