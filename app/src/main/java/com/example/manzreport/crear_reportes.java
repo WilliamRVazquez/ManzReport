@@ -329,8 +329,8 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
     public void onBackPressed() {
         if (exitLoad.equals("SI")){
             AlertDialog.Builder myBulid = new AlertDialog.Builder(this);
-            myBulid.setMessage("En verdad deseas salir de la APP");
-            myBulid.setTitle("Mensaje");
+            myBulid.setMessage("Seguro que deseas salir? perderas todos los datos");
+            myBulid.setTitle("Alerta");
             myBulid.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
