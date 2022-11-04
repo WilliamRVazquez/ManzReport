@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 markerOptions.title(latLng.latitude+ " : "+ latLng.longitude);
                 gmap.clear();
                 //gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
-                gmap.addMarker(markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                gmap.addMarker(markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
 
             }
         });
