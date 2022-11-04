@@ -347,6 +347,60 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
             AlertDialog dialog = myBulid.create();
             dialog.show();
 
+        }else if(item != "-"){
+            AlertDialog.Builder myBulid = new AlertDialog.Builder(this);
+            myBulid.setMessage("Seguro que deseas salir? perderas todos los datos");
+            myBulid.setTitle("Alerta");
+            myBulid.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            myBulid.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog dialog = myBulid.create();
+            dialog.show();
+        }else if(ubicacion.getText().toString().isEmpty()==false){
+            AlertDialog.Builder myBulid = new AlertDialog.Builder(this);
+            myBulid.setMessage("Seguro que deseas salir? perderas todos los datos");
+            myBulid.setTitle("Alerta");
+            myBulid.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            myBulid.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog dialog = myBulid.create();
+            dialog.show();
+        }else if(DescReport.getText().toString().isEmpty()==false){
+            AlertDialog.Builder myBulid = new AlertDialog.Builder(this);
+            myBulid.setMessage("Seguro que deseas salir? perderas todos los datos");
+            myBulid.setTitle("Alerta");
+            myBulid.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            myBulid.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog dialog = myBulid.create();
+            dialog.show();
         }else{
             super.onBackPressed();
         }

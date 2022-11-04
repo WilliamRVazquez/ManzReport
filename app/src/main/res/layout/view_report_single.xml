@@ -45,7 +45,7 @@
                 <TextView
                     android:id="@+id/ubicacion"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="ubicacion"
                     android:textSize="16sp" />
@@ -59,6 +59,16 @@
         <Space
             android:layout_width="10dp"
             android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/btn_eliminar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#EF1212"
+            android:padding="5dp"
+            app:srcCompat="@drawable/delete" />
+
+
 
 
     </LinearLayout>
