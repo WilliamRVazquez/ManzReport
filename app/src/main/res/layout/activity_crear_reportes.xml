@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+
+    android:background="#F5F5F5"
     tools:context=".crear_reportes">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="#F5F5F5">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -53,8 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="Tipo de Incidencia:"
-            android:textSize="15dp"
             android:textColor="@color/black"
+            android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
@@ -64,25 +65,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#BCC5C1"
-            android:outlineSpotShadowColor="@color/black"
             android:outlineAmbientShadowColor="@color/white"
+            android:outlineSpotShadowColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Type_report" />
 
 
-
         <Switch
             android:id="@+id/uso_de_gps_si_no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
             android:hint="Usar Ubicacion GPS"
+            android:outlineSpotShadowColor="@color/black"
             android:textColorHint="@color/black"
+            android:textSize="15dp"
             android:theme="@style/swichcolor"
             android:trackTint="#BCC5C1"
-            android:outlineSpotShadowColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -106,10 +106,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:textSize="15dp"
             android:text="Descripcion del Reporte"
             android:textAlignment="center"
             android:textColor="@color/black"
+            android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ubicacion_manual" />
@@ -120,14 +120,14 @@
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
-            android:ems="10"
-            android:inputType=""
-            android:hint="Escribe tu Reporte"
-            android:textColor="@color/black"
-            android:textSize="15dp"
-            android:textColorHint="#8C8C8C"
             android:backgroundTint="#D9D9D9"
+            android:ems="10"
+            android:hint="Escribe tu Reporte"
+            android:inputType=""
             android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textColorHint="#8C8C8C"
+            android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
@@ -140,9 +140,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="44dp"
             android:text="Foto/evidencia/"
-            android:textSize="15dp"
             android:textAlignment="center"
             android:textColor="@color/black"
+            android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -159,17 +159,18 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
         <LinearLayout
+            android:id="@+id/layoutbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
-            android:id="@+id/layoutbtn"
-            android:layout_marginTop="20dp">
+            app:layout_constraintTop_toBottomOf="@+id/imageView">
 
             <Space
                 android:layout_width="wrap_content"
@@ -185,7 +186,7 @@
                 app:cornerRadius="30dp"
                 app:icon="@drawable/delete"
                 app:iconGravity="textStart"
-                app:iconTint="@color/white"/>
+                app:iconTint="@color/white" />
 
         </LinearLayout>
 
