@@ -64,7 +64,7 @@
             android:id="@+id/spinreport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#BCC5C1"
+            android:backgroundTint="#F5F5F5"
             android:outlineAmbientShadowColor="@color/white"
             android:outlineSpotShadowColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
