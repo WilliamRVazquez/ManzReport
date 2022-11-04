@@ -22,6 +22,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     Button btn_ver_reportes, btn_crear_reporte, btnPerfil;
     Intent i;
     int op;
-
+    GoogleMap gmap;
     FirebaseAuth fAuth;
 
 
@@ -77,8 +78,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady( GoogleMap googleMap) {
         googleMap.setTrafficEnabled(true);
-
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        gmap = googleMap;
+        gmap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(@NonNull LatLng latLng) {
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(latLng);
+                markerOptions.title(latLng.latitude+ " : "+ latLng.longitude);
+                gmap.clear();
+                //gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
+                gmap.addMarker(markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+
+            }
+        });
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions

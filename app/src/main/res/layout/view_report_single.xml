@@ -60,17 +60,12 @@
             android:layout_width="10dp"
             android:layout_height="wrap_content" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_eliminar"
-            android:layout_width="90px"
-            android:layout_height="90px"
-            android:padding="0dp"
-            android:background="@drawable/delete"
-            android:backgroundTint="@color/white"
-            app:icon="@drawable/delete"
-            app:iconTint="#C23A3A"
-            app:iconSize="90px"
-            />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/deletered"
+            android:backgroundTint="@color/white"/>
 
 
 
