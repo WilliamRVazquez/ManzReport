@@ -55,6 +55,12 @@
 
         </LinearLayout>
 
+        <ImageButton
+            android:id="@+id/btn_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/detailblue"
+            android:backgroundTint="@color/white"/>
 
         <Space
             android:layout_width="10dp"
