@@ -4,6 +4,7 @@ package com.example.manzreport.adapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.manzreport.Detalle_Reportes;
 import com.example.manzreport.R;
 import com.example.manzreport.model.Report;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -50,7 +52,16 @@ public class ReportAdapter extends FirestoreRecyclerAdapter<Report, ReportAdapte
                 deleteReport(id);
             }
         });
+        viewHolder.btn_detalles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(activity, Detalle_Reportes.class);
+                i.putExtra("id_Reportes", id);
+                activity.startActivity(i);
+            }
+        });
     }
+
 
     private void deleteReport(String id) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this.activity);
@@ -92,13 +103,14 @@ public class ReportAdapter extends FirestoreRecyclerAdapter<Report, ReportAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tiporeporte, ubicacion;
-        ImageView btn_delete;
+        ImageView btn_delete,btn_detalles;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tiporeporte = itemView.findViewById(R.id.tiporeporte);
             btn_delete = itemView.findViewById(R.id.btn_eliminar);
+            btn_detalles = itemView.findViewById(R.id.btn_detail);
 
 
         }
