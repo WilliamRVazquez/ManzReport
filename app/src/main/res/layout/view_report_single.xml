@@ -57,6 +57,7 @@
 
         <ImageButton
             android:id="@+id/btn_detail"
+            android:tooltipText="Detalles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/detailblue"
@@ -67,6 +68,7 @@
             android:layout_height="wrap_content" />
         <ImageButton
             android:id="@+id/btn_location"
+            android:tooltipText="Ubicacion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/iclocation"
@@ -74,6 +76,7 @@
 
         <ImageButton
             android:id="@+id/btn_eliminar"
+            android:tooltipText="Eliminar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/deletered"
