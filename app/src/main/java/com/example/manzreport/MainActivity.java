@@ -14,10 +14,13 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -26,6 +29,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -36,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     FirebaseAuth fAuth;
     double latfire;
     double longfire;
-    String markerlisto;
+    String markerlisto = "";
     String lat, longi;
 
 
@@ -55,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         btn_crear_reporte.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (markerlisto.equals("ready")){
+                if (markerlisto.equals("ready")) {
                     Bundle extras = new Bundle();
 
                     extras.putDouble("latitud", latfire);
@@ -65,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     intent.putExtras(extras);
 
                     startActivity(intent);
-                }else{
+                } else {
                     Toast.makeText(MainActivity.this, "Necesita escoger una ubicacion", Toast.LENGTH_SHORT).show();
                 }
 
@@ -75,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         btn_ver_reportes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                i = new Intent(MainActivity.this,ver_reportes.class);
+                i = new Intent(MainActivity.this, ver_reportes.class);
 
                 startActivity(i);
             }
@@ -83,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         btnPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                i = new Intent(MainActivity.this,UserPerfil.class);
+                i = new Intent(MainActivity.this, UserPerfil.class);
                 startActivity(i);
             }
         });
@@ -91,19 +96,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
     @Override
-    public void onMapReady( GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap) {
         googleMap.setTrafficEnabled(true);
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         gmap = googleMap;
-        LatLng manzanillo = new LatLng(19.122128362793248, -104.33868795635321);
-        gmap.moveCamera(CameraUpdateFactory.newLatLng(manzanillo));
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(manzanillo)
-                .zoom(16) //para cambiar el zoom de hacercamiento
-                .bearing(90)
-                .tilt(45)
-                .build();
-        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        gmap.setMyLocationEnabled(true);
+        getLastLocation();
         gmap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(@NonNull LatLng latLng) {
@@ -114,11 +122,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 longfire = latLng.longitude;
 
 
-                markerlisto = "ready";
-
                 gmap.clear();
                 //gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
                 gmap.addMarker(markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                markerlisto = "ready";
 
             }
         });
@@ -142,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onLocationChanged(Location location) {
                 LatLng miUbicacion = new LatLng(location.getLatitude(), location.getLongitude());
+
                 //googleMap.moveCamera(CameraUpdateFactory.newLatLng(miUbicacion));
 
 
@@ -166,6 +174,32 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
     }
+
+    private void getLastLocation() {
+        FusedLocationProviderClient locationClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
+        try {
+            locationClient.getLastLocation()
+                    .addOnSuccessListener(new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // GPS location can be null if GPS is switched off
+                            if (location != null) {
+                                if (gmap != null) {
+                                    gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()),15));
+                                }
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("MapDemoActivity", "Error trying to get last GPS location");
+                            e.printStackTrace();
+                        }
+                    });
+        } catch (SecurityException e) { e.printStackTrace(); }
+    }
+
     public void onBackPressed() {
         AlertDialog.Builder exit = new AlertDialog.Builder(this);
         exit.setMessage("Esta seguro de salir de la Aplicacion?")
