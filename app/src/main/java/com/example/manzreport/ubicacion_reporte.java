@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,6 +74,14 @@ public class ubicacion_reporte extends AppCompatActivity implements OnMapReadyCa
         progressDialog.show();
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
+
+        Handler handler =  new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+            }
+        },10000);
 
         mfirestore.collection("Reportes").document(idd).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
