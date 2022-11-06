@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
                 gmap.clear();
-                //gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
+                gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,19));
                 gmap.addMarker(markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                 markerlisto = "ready";
 
@@ -194,7 +194,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             // GPS location can be null if GPS is switched off
                             if (location != null) {
                                 if (gmap != null) {
-                                    gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()),15));
+
+                                    gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()),16));
                                 }
                             }
                         }
