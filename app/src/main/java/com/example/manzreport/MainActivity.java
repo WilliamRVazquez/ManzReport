@@ -14,6 +14,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +27,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         btn_crear_reporte = (Button) findViewById(R.id.btn_crear_reporte);
         btn_ver_reportes = (Button) findViewById(R.id.btn_ver_reportes);
         btnPerfil = (Button) findViewById(R.id.btnPerfil);
+        VereportDialogprogres vereportDialogprogres = new VereportDialogprogres(MainActivity.this);
         fAuth = FirebaseAuth.getInstance();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -80,9 +81,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         btn_ver_reportes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                i = new Intent(MainActivity.this, ver_reportes.class);
+                vereportDialogprogres.StartAlertDialog();
+                Handler handler =  new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        vereportDialogprogres.dismissDialog();
+                        i = new Intent(MainActivity.this, ver_reportes.class);
+                        startActivity(i);
+                    }
+                },2500);
 
-                startActivity(i);
             }
         });
         btnPerfil.setOnClickListener(new View.OnClickListener() {
