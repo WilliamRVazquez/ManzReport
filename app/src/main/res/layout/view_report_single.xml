@@ -65,6 +65,12 @@
         <Space
             android:layout_width="10dp"
             android:layout_height="wrap_content" />
+        <ImageButton
+            android:id="@+id/btn_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/iclocation"
+            android:backgroundTint="@color/white"/>
 
         <ImageButton
             android:id="@+id/btn_eliminar"

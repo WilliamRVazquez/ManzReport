@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.manzreport.Detalle_Reportes;
 import com.example.manzreport.R;
 import com.example.manzreport.model.Report;
+import com.example.manzreport.ubicacion_reporte;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -60,7 +61,17 @@ public class ReportAdapter extends FirestoreRecyclerAdapter<Report, ReportAdapte
                 activity.startActivity(i);
             }
         });
+        viewHolder.btn_ubicacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(activity, ubicacion_reporte.class);
+                i.putExtra("id_Ubicacion", id);
+                activity.startActivity(i);
+            }
+        });
     }
+
+
 
 
     private void deleteReport(String id) {
@@ -98,12 +109,14 @@ public class ReportAdapter extends FirestoreRecyclerAdapter<Report, ReportAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_report_single, parent, false);
+
         return new ViewHolder(v);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tiporeporte, ubicacion;
-        ImageView btn_delete,btn_detalles;
+        ImageView btn_delete,btn_detalles,btn_ubicacion;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -111,6 +124,7 @@ public class ReportAdapter extends FirestoreRecyclerAdapter<Report, ReportAdapte
             tiporeporte = itemView.findViewById(R.id.tiporeporte);
             btn_delete = itemView.findViewById(R.id.btn_eliminar);
             btn_detalles = itemView.findViewById(R.id.btn_detail);
+            btn_ubicacion = itemView.findViewById(R.id.btn_location);
 
 
         }

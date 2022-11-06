@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,7 +29,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -41,7 +39,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class crear_reportes extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     ImageButton atras;
@@ -87,6 +84,10 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
         linearbtn = (LinearLayout) findViewById(R.id.layoutbtn);
         //btnedit = (Button) findViewById(R.id.btnEdit);
         btndelete = (Button) findViewById(R.id.btnRemove);
+        double lat = getIntent().getExtras().getDouble("latitud");
+        String latitud = new Double(lat).toString();
+        double lon = getIntent().getExtras().getDouble("longitud");
+        String longitud = new Double(lon).toString();
         progressDialog = new ProgressDialog(this);
         imageView = (ImageView) findViewById(R.id.imageView);
 
@@ -156,7 +157,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
                     Toast.makeText(getApplicationContext(), "Ingresar descripccion del reporte", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    postReport(ubireport, desreporte, item);
+                    postReport(ubireport, desreporte, item, latitud, longitud);
                 }
             }
         });
@@ -197,9 +198,6 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
         map.put("id_user", idUser);
         map.put("photo", "");
         map.put("id", id.getId());
-        map.put("ubicacion", "");
-        map.put("descripcion", "");
-        map.put("tiporeporte", "");
         exitLoad = "SI";
         mfirestore.collection("Reportes").document(id.getId()).set(map);
         idd = id.getId();
@@ -281,12 +279,14 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
         });
     }
 
-    private void postReport(String ubireport, String desreporte, String item) {
+    private void postReport(String ubireport, String desreporte, String item, String latitud, String longitud) {
 
         Map<String, Object> map = new HashMap<>();
         map.put("ubicacion", ubireport);
         map.put("descripcion", desreporte);
         map.put("tiporeporte", item);
+        map.put("latitud",latitud);
+        map.put("longitud",longitud);
 
         mfirestore.collection("Reportes").document(idd).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

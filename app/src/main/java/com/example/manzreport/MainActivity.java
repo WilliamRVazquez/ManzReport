@@ -16,7 +16,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -34,6 +34,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     int op;
     GoogleMap gmap;
     FirebaseAuth fAuth;
+    double latfire;
+    double longfire;
+    String markerlisto;
+    String lat, longi;
 
 
     @Override
@@ -51,9 +55,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         btn_crear_reporte.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                i = new Intent(MainActivity.this,crear_reportes.class);
+                if (markerlisto.equals("ready")){
+                    Bundle extras = new Bundle();
 
-                startActivity(i);
+                    extras.putDouble("latitud", latfire);
+                    extras.putDouble("longitud", longfire);
+
+                    Intent intent = new Intent(MainActivity.this, crear_reportes.class);
+                    intent.putExtras(extras);
+
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(MainActivity.this, "Necesita escoger una ubicacion", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -80,12 +95,27 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         googleMap.setTrafficEnabled(true);
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         gmap = googleMap;
+        LatLng manzanillo = new LatLng(19.122128362793248, -104.33868795635321);
+        gmap.moveCamera(CameraUpdateFactory.newLatLng(manzanillo));
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(manzanillo)
+                .zoom(16) //para cambiar el zoom de hacercamiento
+                .bearing(90)
+                .tilt(45)
+                .build();
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         gmap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(@NonNull LatLng latLng) {
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
                 markerOptions.title(latLng.latitude+ " : "+ latLng.longitude);
+                latfire = latLng.latitude;
+                longfire = latLng.longitude;
+
+
+                markerlisto = "ready";
+
                 gmap.clear();
                 //gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
                 gmap.addMarker(markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
@@ -112,14 +142,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onLocationChanged(Location location) {
                 LatLng miUbicacion = new LatLng(location.getLatitude(), location.getLongitude());
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(miUbicacion));
-                CameraPosition cameraPosition = new CameraPosition.Builder()
-                        .target(miUbicacion)
-                        .zoom(18) //para cambiar el zoom de hacercamiento
-                        .bearing(90)
-                        .tilt(45)
-                        .build();
-                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                //googleMap.moveCamera(CameraUpdateFactory.newLatLng(miUbicacion));
+
 
             }
 
