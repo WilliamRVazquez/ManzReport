@@ -72,7 +72,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Type_report" />
 
-
         <TextView
             android:id="@+id/ubicacion_manual"
             android:layout_width="match_parent"
