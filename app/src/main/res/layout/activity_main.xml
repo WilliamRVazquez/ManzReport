@@ -55,6 +55,13 @@
         app:iconTint="@color/white"
         />
 
+    <TextView
+        android:id="@+id/txtdireccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:ignore="MissingConstraints" />
+
     <Button
         android:id="@+id/btn_crear_reporte"
         android:layout_width="60dp"
@@ -91,6 +98,7 @@
         app:layout_constraintStart_toStartOf="@+id/map"
         app:layout_constraintTop_toTopOf="@+id/map"
         app:layout_constraintVertical_bias="0.809" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
