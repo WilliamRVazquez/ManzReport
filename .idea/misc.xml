@@ -40,6 +40,7 @@
         <entry key="app/src/main/res/layout/activity_user_perfil.xml" value="0.303125" />
         <entry key="app/src/main/res/layout/activity_ver_reportes.xml" value="0.303125" />
         <entry key="app/src/main/res/layout/listviewresours.xml" value="0.303125" />
+        <entry key="app/src/main/res/layout/view_report_single.xml" value="0.303125" />
       </map>
     </option>
   </component>

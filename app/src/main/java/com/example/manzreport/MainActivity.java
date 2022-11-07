@@ -140,19 +140,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onMapClick(@NonNull LatLng latLng) {
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
-                markerOptions.title(latLng.latitude+ " : "+ latLng.longitude);
+
                 latfire = latLng.latitude;
                 longfire = latLng.longitude;
                 Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
                 try {
                     List<Address> direccion = geocoder.getFromLocation(latLng.latitude,latLng.longitude,1);
                     direccion1.setText(direccion.get(0).getAddressLine(0));
+                    String mostradireccion = direccion1.getText().toString();
+                    markerOptions.title(mostradireccion);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
                 gmap.clear();
-                gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,19));
+                gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,18));
                 gmap.addMarker(markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                 markerlisto = "ready";
 
