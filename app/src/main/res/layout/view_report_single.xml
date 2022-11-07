@@ -17,8 +17,6 @@
         android:orientation="horizontal"
         android:padding="10dp">
 
-
-
         <Space
             android:layout_width="14dp"
             android:layout_height="wrap_content" />
@@ -63,9 +61,6 @@
             android:src="@drawable/detailblue"
             android:backgroundTint="@color/white"/>
 
-        <Space
-            android:layout_width="10dp"
-            android:layout_height="wrap_content" />
         <ImageButton
             android:id="@+id/btn_location"
             android:tooltipText="Ubicacion"

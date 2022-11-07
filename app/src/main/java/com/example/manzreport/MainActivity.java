@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         i = new Intent(MainActivity.this, ver_reportes.class);
                         startActivity(i);
                     }
-                },2500);
+                },1000);
 
             }
         });
