@@ -1,5 +1,8 @@
 package com.example.manzreport;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +13,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -18,6 +23,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -33,6 +39,10 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     Button btn_ver_reportes, btn_crear_reporte, btnPerfil;
     Intent i;
@@ -43,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     double longfire;
     String markerlisto = "";
     String lat, longi;
+    TextView direccion1;
 
 
     @Override
@@ -54,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         btnPerfil = (Button) findViewById(R.id.btnPerfil);
         VereportDialogprogres vereportDialogprogres = new VereportDialogprogres(MainActivity.this);
         fAuth = FirebaseAuth.getInstance();
+        direccion1 = (TextView) findViewById(R.id.txtdireccion);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -63,9 +75,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View v) {
                 if (markerlisto.equals("ready")) {
                     Bundle extras = new Bundle();
+                    String ubicaciones = direccion1.getText().toString();
 
                     extras.putDouble("latitud", latfire);
                     extras.putDouble("longitud", longfire);
+                    extras.putString("ubicacion", ubicaciones);
 
                     Intent intent = new Intent(MainActivity.this, crear_reportes.class);
                     intent.putExtras(extras);
@@ -129,7 +143,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 markerOptions.title(latLng.latitude+ " : "+ latLng.longitude);
                 latfire = latLng.latitude;
                 longfire = latLng.longitude;
-
+                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                try {
+                    List<Address> direccion = geocoder.getFromLocation(latLng.latitude,latLng.longitude,1);
+                    direccion1.setText(direccion.get(0).getAddressLine(0));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 gmap.clear();
                 gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,19));
@@ -196,6 +216,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 if (gmap != null) {
 
                                     gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()),16));
+                                    Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
                                 }
                             }
                         }
@@ -229,5 +250,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         AlertDialog titulo = exit.create();
         titulo.setTitle("Salir de la app");
         titulo.show();
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        direccion1.setVisibility(GONE);
+
     }
 }

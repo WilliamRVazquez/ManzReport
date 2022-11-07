@@ -73,22 +73,7 @@
             app:layout_constraintTop_toBottomOf="@+id/Type_report" />
 
 
-        <Switch
-            android:id="@+id/uso_de_gps_si_no"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Usar Ubicacion GPS"
-            android:outlineSpotShadowColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textSize="15dp"
-            android:theme="@style/swichcolor"
-            android:trackTint="#BCC5C1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinreport" />
-
-        <EditText
+        <TextView
             android:id="@+id/ubicacion_manual"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -99,7 +84,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/uso_de_gps_si_no" />
+            app:layout_constraintTop_toBottomOf="@+id/spinreport" />
 
         <TextView
             android:id="@+id/textView2"

@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,7 +43,7 @@ import java.util.Map;
 
 public class crear_reportes extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     ImageButton atras;
-    EditText ubicacion, DescReport;
+    EditText  DescReport;
     ImageView imageView;
     StorageReference storageReference;
     String storage_path = "report/*";
@@ -50,6 +51,8 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
 
     LinearLayout linearbtn;
     Button btndelete;
+    String direcciones;
+    TextView direccion, ubicacion;
     //Button btnedit;
     String show = "";
     Spinner report;
@@ -84,15 +87,17 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
         linearbtn = (LinearLayout) findViewById(R.id.layoutbtn);
         //btnedit = (Button) findViewById(R.id.btnEdit);
         btndelete = (Button) findViewById(R.id.btnRemove);
+        ubicacion = (TextView) findViewById(R.id.ubicacion_manual);
         double lat = getIntent().getExtras().getDouble("latitud");
+        direcciones = getIntent().getExtras().getString("ubicacion");
+        ubicacion.setText(direcciones);
+
         String latitud = new Double(lat).toString();
         double lon = getIntent().getExtras().getDouble("longitud");
         String longitud = new Double(lon).toString();
         progressDialog = new ProgressDialog(this);
         imageView = (ImageView) findViewById(R.id.imageView);
 
-
-        ubicacion = (EditText) findViewById(R.id.ubicacion_manual);
         DescReport = (EditText) findViewById(R.id.DescReport);
 
         report = (Spinner)findViewById(R.id.spinreport);
@@ -307,6 +312,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
     @Override
     protected void onStart() {
         super.onStart();
+
         linearbtn.setVisibility(GONE);
         btn_enviar.setVisibility(GONE);
         if (show.equals("ok")){
@@ -348,24 +354,6 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
             dialog.show();
 
         }else if(item != "-"){
-            AlertDialog.Builder myBulid = new AlertDialog.Builder(this);
-            myBulid.setMessage("Seguro que deseas salir? perderas todos los datos");
-            myBulid.setTitle("Alerta");
-            myBulid.setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
-            myBulid.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            AlertDialog dialog = myBulid.create();
-            dialog.show();
-        }else if(ubicacion.getText().toString().isEmpty()==false){
             AlertDialog.Builder myBulid = new AlertDialog.Builder(this);
             myBulid.setMessage("Seguro que deseas salir? perderas todos los datos");
             myBulid.setTitle("Alerta");
