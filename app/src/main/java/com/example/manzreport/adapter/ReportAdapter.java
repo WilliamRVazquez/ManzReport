@@ -47,6 +47,7 @@ public class ReportAdapter extends FirestoreRecyclerAdapter<Report, ReportAdapte
         final String id = documentSnapshot.getId();
 
         viewHolder.tiporeporte.setText(Report.getTiporeporte());//
+        viewHolder.ubicacion.setText(Report.getUbicacion());
         viewHolder.btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,6 +123,7 @@ public class ReportAdapter extends FirestoreRecyclerAdapter<Report, ReportAdapte
             super(itemView);
 
             tiporeporte = itemView.findViewById(R.id.tiporeporte);
+            ubicacion = itemView.findViewById(R.id.ubicacion);
             btn_delete = itemView.findViewById(R.id.btn_eliminar);
             btn_detalles = itemView.findViewById(R.id.btn_detail);
             btn_ubicacion = itemView.findViewById(R.id.btn_location);

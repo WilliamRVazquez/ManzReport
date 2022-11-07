@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
 
                 gmap.clear();
-                
+                gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,19));
                 gmap.addMarker(markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                 markerlisto = "ready";
 
