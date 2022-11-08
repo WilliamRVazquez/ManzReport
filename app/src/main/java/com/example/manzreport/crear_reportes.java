@@ -5,6 +5,7 @@ import static android.view.View.VISIBLE;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +13,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,12 +34,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +55,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
     StorageReference storageReference;
     String storage_path = "report/*";
     String download_uri;
+
 
     LinearLayout linearbtn;
     Button btndelete;
@@ -67,6 +75,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
     Button btn_image, btn_enviar;
 
 
+
     private FirebaseFirestore mfirestore;
     private FirebaseAuth mAuth;
 
@@ -81,6 +90,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_reportes);
+
         atras = (ImageButton) findViewById(R.id.atras_de_crear_reporte);
         btn_enviar = (Button) findViewById(R.id.btn_enviar);
         btn_image = (Button) findViewById(R.id.btn_image);
@@ -148,6 +158,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
 
 
         btn_enviar.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
                 String ubireport = ubicacion.getText().toString().trim();
@@ -284,6 +295,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void postReport(String ubireport, String desreporte, String item, String latitud, String longitud) {
 
         Map<String, Object> map = new HashMap<>();
@@ -292,6 +304,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
         map.put("tiporeporte", item);
         map.put("latitud",latitud);
         map.put("longitud",longitud);
+        map.put("date", FieldValue.serverTimestamp());
 
         mfirestore.collection("Reportes").document(idd).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
