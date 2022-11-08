@@ -142,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 markerOptions.position(latLng);
                 markerOptions.title(latLng.latitude+ " : "+ latLng.longitude);
                 latfire = latLng.latitude;
+
                 longfire = latLng.longitude;
                 Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
                 try {
