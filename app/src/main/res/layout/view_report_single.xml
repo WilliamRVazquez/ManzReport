@@ -26,14 +26,44 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Tipo de reporte:"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tiporeporte"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tipo de reporte"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="14sp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Ubicacion:"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,11 +76,22 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="ubicacion"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-
-
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Fecha:"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
 
             </LinearLayout>
             <LinearLayout
@@ -64,7 +105,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="date"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -73,24 +114,27 @@
         <ImageButton
             android:id="@+id/btn_detail"
             android:tooltipText="Detalles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="15dp"
             android:src="@drawable/detailblue"
             android:backgroundTint="@color/white"/>
 
         <ImageButton
             android:id="@+id/btn_location"
             android:tooltipText="Ubicacion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="15dp"
             android:src="@drawable/iclocation"
             android:backgroundTint="@color/white"/>
 
         <ImageButton
             android:id="@+id/btn_eliminar"
             android:tooltipText="Eliminar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="15dp"
             android:src="@drawable/deletered"
             android:backgroundTint="@color/white"/>
 

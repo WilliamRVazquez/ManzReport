@@ -10,7 +10,7 @@ public class Report {
 
     }
 
-    public Report(String tiporeporte, String ubicacion, Timestamp date) {
+    public Report(String tiporeporte, String ubicacion,Timestamp date) {
         this.tiporeporte = tiporeporte;
         this.ubicacion = ubicacion;
         this.date = date;

@@ -104,12 +104,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ubicacion_manual" />
 
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:hint="Titulo del Reporte"
+            android:textColorHint="#8C8C8C"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:backgroundTint="#D9D9D9"
+            android:ems="10"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
 
         <EditText
             android:id="@+id/DescReport"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="5dp"
             android:backgroundTint="#D9D9D9"
             android:ems="10"
             android:hint="Escribe tu Reporte"
@@ -119,10 +134,9 @@
             android:textColorHint="#8C8C8C"
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
+            app:layout_constraintTop_toBottomOf="@+id/editText" />
 
         <TextView
             android:id="@+id/textView3"
