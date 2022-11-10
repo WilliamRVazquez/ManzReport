@@ -3,27 +3,27 @@ package com.example.manzreport.model;
 import com.google.firebase.Timestamp;
 
 public class Report {
-    String tiporeporte;
+    String tituloreporte;
     String ubicacion;
     Timestamp date;
     public Report(){
 
     }
 
-    public Report(String tiporeporte, String ubicacion,Timestamp date) {
-        this.tiporeporte = tiporeporte;
+    public Report(String tituloreporte, String ubicacion,Timestamp date) {
+        this.tituloreporte = tituloreporte;
         this.ubicacion = ubicacion;
         this.date = date;
 
 
     }
 
-    public String getTiporeporte() {
-        return tiporeporte;
+    public String getTituloreporte() {
+        return tituloreporte;
     }
 
-    public void setTiporeporte(String tiporeporte) {
-        this.tiporeporte = tiporeporte;
+    public void setTituloreporte(String tituloreporte) {
+        this.tituloreporte = tituloreporte;
     }
 
     public String getUbicacion() {

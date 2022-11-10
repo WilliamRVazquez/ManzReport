@@ -46,7 +46,7 @@ public class ReportAdapter extends FirestoreRecyclerAdapter<Report, ReportAdapte
         DocumentSnapshot documentSnapshot = getSnapshots().getSnapshot(viewHolder.getAdapterPosition());
         final String id = documentSnapshot.getId();
 
-        viewHolder.tiporeporte.setText(Report.getTiporeporte());//
+        viewHolder.tiporeporte.setText(Report.getTituloreporte());//
         viewHolder.ubicacion.setText(Report.getUbicacion());
         viewHolder.date.setText(Report.getDate().toDate().toString());
 
