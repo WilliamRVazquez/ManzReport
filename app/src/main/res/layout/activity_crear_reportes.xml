@@ -105,7 +105,7 @@
             app:layout_constraintTop_toBottomOf="@+id/ubicacion_manual" />
 
         <EditText
-            android:id="@+id/TituloReport"
+            android:id="@+id/editText"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:hint="Titulo del Reporte"

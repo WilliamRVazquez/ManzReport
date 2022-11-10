@@ -1,5 +1,4 @@
 package com.example.manzreport;
-
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
@@ -50,11 +49,12 @@ import java.util.Map;
 
 public class crear_reportes extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     ImageButton atras;
-    EditText  DescReport, TituloReport;
+    EditText  DescReport;
     ImageView imageView;
     StorageReference storageReference;
     String storage_path = "report/*";
     String download_uri;
+    EditText titulo;
 
 
     LinearLayout linearbtn;
@@ -64,7 +64,6 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
     //Button btnedit;
     String show = "";
     Spinner report;
-
     String exitLoad = "";
 
     String [] opciones = {"-","Capdam","Proteccion civil","Jardineria","Mantenimiento publico"};
@@ -96,6 +95,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
         btn_image = (Button) findViewById(R.id.btn_image);
         linearbtn = (LinearLayout) findViewById(R.id.layoutbtn);
         //btnedit = (Button) findViewById(R.id.btnEdit);
+        titulo = (EditText) findViewById(R.id.editText);
         btndelete = (Button) findViewById(R.id.btnRemove);
         ubicacion = (TextView) findViewById(R.id.ubicacion_manual);
         double lat = getIntent().getExtras().getDouble("latitud");
@@ -109,7 +109,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
         imageView = (ImageView) findViewById(R.id.imageView);
 
         DescReport = (EditText) findViewById(R.id.DescReport);
-        TituloReport = (EditText) findViewById(R.id.TituloReport);
+
         report = (Spinner)findViewById(R.id.spinreport);
         ArrayAdapter<String> aa = new ArrayAdapter<String>(crear_reportes.this,
                 R.layout.listviewresours, opciones);
@@ -148,12 +148,12 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
             }
         });
         //btnedit.setOnClickListener(new View.OnClickListener() {
-            //@Override
-            //public void onClick(View view) {
-                //uploadPhoto();
-              //  editSi = "SI";
+        //@Override
+        //public void onClick(View view) {
+        //uploadPhoto();
+        //  editSi = "SI";
 
-            //}
+        //}
         //});
 
 
@@ -163,7 +163,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
             public void onClick(View view) {
                 String ubireport = ubicacion.getText().toString().trim();
                 String desreporte = DescReport.getText().toString().trim();
-                String titreport = TituloReport.getText().toString().trim();
+                String titreport = titulo.getText().toString().trim();
 
                 if(item.equals("-")){
                     Toast.makeText(getApplicationContext(), "Escoga el tipo de incidencia", Toast.LENGTH_SHORT).show();
@@ -172,12 +172,12 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
                 }
                 else if (desreporte.isEmpty()){
                     Toast.makeText(getApplicationContext(), "Ingresar descripccion del reporte", Toast.LENGTH_SHORT).show();
-                }else if (titreport.isEmpty()){
-                    Toast.makeText(getApplicationContext(), "Ingresar el titulo del reporte", Toast.LENGTH_SHORT).show();
                 }
-
+                else if (titreport.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Ingresar descripccion del reporte", Toast.LENGTH_SHORT).show();
+                }
                 else{
-                    postReport(ubireport, desreporte, titreport, item, latitud, longitud);
+                    postReport(ubireport, desreporte, item, latitud, longitud, titreport);
                 }
             }
         });
@@ -251,19 +251,19 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
 
 
                             //if (editSi.equals("SI")){
-                               // Map<String, Object> map = new HashMap<>();
-                               // map.put("photo", download_uri);
-                                //mfirestore.collection("Reportes").document(idd).update(map);
-                                //Toast.makeText(crear_reportes.this, "Se edito la imagen", Toast.LENGTH_SHORT).show();
-                                //linearbtn.setVisibility(View.VISIBLE);
+                            // Map<String, Object> map = new HashMap<>();
+                            // map.put("photo", download_uri);
+                            //mfirestore.collection("Reportes").document(idd).update(map);
+                            //Toast.makeText(crear_reportes.this, "Se edito la imagen", Toast.LENGTH_SHORT).show();
+                            //linearbtn.setVisibility(View.VISIBLE);
                             //btn_image.setVisibility(View.GONE);
                             //}else{
                             // Map<String, Object> map = new HashMap<>();
-                              //  map.put("photo", download_uri);
-                                //mfirestore.collection("Reportes").document(idd).update(map);
-                               // Toast.makeText(crear_reportes.this, "Se agrego la imagen", Toast.LENGTH_SHORT).show();
-                               // btn_image.setVisibility(View.GONE);
-                                //linearbtn.setVisibility(View.VISIBLE);
+                            //  map.put("photo", download_uri);
+                            //mfirestore.collection("Reportes").document(idd).update(map);
+                            // Toast.makeText(crear_reportes.this, "Se agrego la imagen", Toast.LENGTH_SHORT).show();
+                            // btn_image.setVisibility(View.GONE);
+                            //linearbtn.setVisibility(View.VISIBLE);
                             //}
                         }
                     });
@@ -308,8 +308,8 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
         map.put("tiporeporte", item);
         map.put("latitud",latitud);
         map.put("longitud",longitud);
+        map.put("titulo",titreport);
         map.put("date", FieldValue.serverTimestamp());
-        map.put("tituloreporte",titreport);
 
         mfirestore.collection("Reportes").document(idd).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -353,7 +353,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
     public void onBackPressed() {
         if (exitLoad.equals("SI")){
             AlertDialog.Builder myBulid = new AlertDialog.Builder(this);
-            myBulid.setMessage("¿Seguro que deseas salir? perderas todos los datos");
+            myBulid.setMessage("Seguro que deseas salir? perderas todos los datos");
             myBulid.setTitle("Alerta");
             myBulid.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                 @Override
@@ -373,7 +373,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
 
         }else if(item != "-"){
             AlertDialog.Builder myBulid = new AlertDialog.Builder(this);
-            myBulid.setMessage("¿Seguro que deseas salir? perderas todos los datos");
+            myBulid.setMessage("Seguro que deseas salir? perderas todos los datos");
             myBulid.setTitle("Alerta");
             myBulid.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                 @Override
@@ -391,25 +391,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
             dialog.show();
         }else if(DescReport.getText().toString().isEmpty()==false){
             AlertDialog.Builder myBulid = new AlertDialog.Builder(this);
-            myBulid.setMessage("¿Seguro que deseas salir? perderas todos los datos");
-            myBulid.setTitle("Alerta");
-            myBulid.setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
-            myBulid.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            AlertDialog dialog = myBulid.create();
-            dialog.show();
-        }else if(TituloReport.getText().toString().isEmpty()==false){
-            AlertDialog.Builder myBulid = new AlertDialog.Builder(this);
-            myBulid.setMessage("¿Seguro que deseas salir? perderas todos los datos");
+            myBulid.setMessage("Seguro que deseas salir? perderas todos los datos");
             myBulid.setTitle("Alerta");
             myBulid.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                 @Override
