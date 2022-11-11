@@ -21,6 +21,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -35,9 +36,16 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.List;
@@ -45,6 +53,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     Button btn_ver_reportes, btn_crear_reporte, btnPerfil;
+    public static final String TAG = "TAG";
     Intent i;
     int op;
     GoogleMap gmap;
@@ -54,6 +63,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     String markerlisto = "";
     String lat, longi;
     TextView direccion1;
+    TextView rol;
+    FirebaseFirestore mFirestore;
+    FirebaseAuth mAuth;
+    String Rol = "";
 
 
     @Override
@@ -62,13 +75,37 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
         btn_crear_reporte = (Button) findViewById(R.id.btn_crear_reporte);
         btn_ver_reportes = (Button) findViewById(R.id.btn_ver_reportes);
+        mAuth = FirebaseAuth.getInstance();
         btnPerfil = (Button) findViewById(R.id.btnPerfil);
+        mFirestore = FirebaseFirestore.getInstance();
         VereportDialogprogres vereportDialogprogres = new VereportDialogprogres(MainActivity.this);
         fAuth = FirebaseAuth.getInstance();
         direccion1 = (TextView) findViewById(R.id.txtdireccion);
+        rol = (TextView) findViewById(R.id.rol);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        mFirestore.collection("users").whereEqualTo("Id", mAuth.getCurrentUser().getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getString("Rol"));
+                                //esto es para obtener en un querySnapshot algo especifico de un documento en string y asi no obtener el data
+                                String roles = document.getString("Rol");
+                                rol.setText(roles);
+
+
+
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
         btn_crear_reporte.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,14 +132,23 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         btn_ver_reportes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 vereportDialogprogres.StartAlertDialog();
                 Handler handler =  new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         vereportDialogprogres.dismissDialog();
-                        i = new Intent(MainActivity.this, ver_reportes.class);
-                        startActivity(i);
+                        Bundle extras = new Bundle();
+                        String rolesitos = rol.getText().toString();
+
+
+                        extras.putString("rol", rolesitos);
+
+                        Intent intent = new Intent(MainActivity.this, ver_reportes.class);
+                        intent.putExtras(extras);
+
+                        startActivity(intent);
                     }
                 },1000);
 
@@ -257,6 +303,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onStart() {
         super.onStart();
         direccion1.setVisibility(GONE);
+        rol.setVisibility(GONE);
 
     }
 }

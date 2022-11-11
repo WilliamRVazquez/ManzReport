@@ -1,6 +1,7 @@
 package com.example.manzreport;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.manzreport.adapter.ReportAdapter;
 import com.example.manzreport.model.Report;
@@ -25,7 +27,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -38,7 +42,7 @@ public class ver_reportes extends AppCompatActivity {
     FirebaseAuth mAuth;
     ImageButton atras;
     Query query;
-
+    String Rol;
     @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,38 @@ public class ver_reportes extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         atras = (ImageButton) findViewById(R.id.atras_de_ver_reporte);
         mRecycler = (RecyclerView) findViewById(R.id.recyclerViewSingle);
-        setUpRecyclerView();
+        Rol = getIntent().getExtras().getString("rol");
+        mFirestore = FirebaseFirestore.getInstance();
+        DocumentReference id = mFirestore.collection("users").document();
+        mFirestore.collection("users")
+                .whereEqualTo("Rol", "1")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+
+
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+
+
+        if(Rol.equals("1")){
+            query = mFirestore.collection("Reportes").whereEqualTo("id_user", mAuth.getCurrentUser().getUid()).whereEqualTo("Aceptado", "Si");
+            setUpRecyclerView();
+
+        }else if (Rol.equals("0")){
+            query = mFirestore.collection("Reportes").whereEqualTo("id_user", mAuth.getCurrentUser().getUid());
+            setUpRecyclerView();
+        }
+
 
         atras.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,14 +95,9 @@ public class ver_reportes extends AppCompatActivity {
 
     @SuppressLint("NotifyDataSetChanged")
     private void setUpRecyclerView() {
-        mFirestore = FirebaseFirestore.getInstance();
+
 
         mRecycler.setLayoutManager(new WrapContentLinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-
-
-
-
-        query = mFirestore.collection("Reportes").whereEqualTo("id_user", mAuth.getCurrentUser().getUid()).whereEqualTo("Aceptado", "Si");
 
 
         FirestoreRecyclerOptions<Report> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<Report>().setQuery(query, Report.class).build();
