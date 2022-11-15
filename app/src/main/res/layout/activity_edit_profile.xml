@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="55dp"
         android:background="#9C2023"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
 
         <ImageButton
             android:id="@+id/atras_edit_de_usuario"
-            android:layout_width="100px"
+            android:layout_width="80px"
             android:layout_height="100px"
             android:layout_marginStart="24dp"
             android:background="@drawable/atras"
