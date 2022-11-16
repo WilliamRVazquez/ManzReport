@@ -1,15 +1,19 @@
 package com.example.manzreport;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,8 +54,9 @@ public class login extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         fAuth = FirebaseAuth.getInstance();
         mLoginBtn = findViewById(R.id.button_sesion);
-        mCreateBtn = findViewById(R.id.txtv_register_and_btn);
+        mCreateBtn =(TextView) findViewById(R.id.txtv_register_and_btn);
         forgotTextLink = findViewById(R.id.Click_aqui_contraseña);
+
 
 
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
@@ -101,12 +106,24 @@ public class login extends AppCompatActivity {
             finish();
         }
 
+
+
+
+
+
+
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),Sing_up.class));
             }
         });
+
+
+
+
+
+
 
         forgotTextLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,6 +169,7 @@ public class login extends AppCompatActivity {
 
 
     }
+
     @Override
     protected void onStart() {
         super.onStart();

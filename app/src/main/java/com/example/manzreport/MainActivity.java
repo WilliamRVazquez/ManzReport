@@ -310,7 +310,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        googleMap.setTrafficEnabled(true);
+        googleMap.setTrafficEnabled(false);
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         gmap = googleMap;
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -363,7 +363,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         googleMap.setMyLocationEnabled(true);
         //boton mi ubicacion, pero se desabilito con el codigo de abajo
 
-        googleMap.getUiSettings().setMyLocationButtonEnabled(false); //para apagar el boton de localizacion
+        //googleMap.getUiSettings().setMyLocationButtonEnabled(false); //para apagar el boton de localizacion
 
         LocationManager locationManager = (LocationManager) MainActivity.this.getSystemService(Context.LOCATION_SERVICE);
         LocationListener locationListener = new LocationListener() {
