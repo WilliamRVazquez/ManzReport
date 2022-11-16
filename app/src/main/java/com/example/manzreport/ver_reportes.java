@@ -2,20 +2,26 @@ package com.example.manzreport;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.manzreport.adapter.ReportAdapter;
 import com.example.manzreport.model.Report;
@@ -43,13 +49,33 @@ public class ver_reportes extends AppCompatActivity {
     ImageButton atras;
     Query query;
     String Rol;
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_reportes);
+
+        Toolbar mToolbar= (Toolbar) findViewById(R.id.toolbar);
+        setActionBar(mToolbar);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        mToolbar.setTitleTextColor(Color.WHITE);
+        getActionBar().setTitle("Reportes");
+        mToolbar.inflateMenu(R.menu.menu_reportes);
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId() == R.id.rpTerminados){
+                    Toast.makeText(ver_reportes.this, "Reportes Terminados", Toast.LENGTH_SHORT).show();
+                    //startActivity(new Intent(MainActivity.this, login.class));
+                }
+                return false;
+            }
+        });
+        mToolbar.setNavigationOnClickListener(view -> onBackPressed());
+
         mAuth = FirebaseAuth.getInstance();
-        atras = (ImageButton) findViewById(R.id.atras_de_ver_reporte);
+        //atras = (ImageButton) findViewById(R.id.atras_de_ver_reporte);
         mRecycler = (RecyclerView) findViewById(R.id.recyclerViewSingle);
         Rol = getIntent().getExtras().getString("rol");
         mFirestore = FirebaseFirestore.getInstance();
@@ -82,15 +108,6 @@ public class ver_reportes extends AppCompatActivity {
             query = mFirestore.collection("Reportes").whereEqualTo("id_user", mAuth.getCurrentUser().getUid());
             setUpRecyclerView();
         }
-
-
-        atras.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-                return;
-            }
-        });
     }
 
     @SuppressLint("NotifyDataSetChanged")
