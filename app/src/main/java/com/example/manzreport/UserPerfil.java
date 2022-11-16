@@ -235,7 +235,7 @@ public class UserPerfil extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                Toast.makeText(UserPerfil.this, "Dialog Closed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserPerfil.this, "Cerrado", Toast.LENGTH_SHORT).show();
             }
         });
         btnsave.setOnClickListener(new View.OnClickListener() {
@@ -281,7 +281,7 @@ public class UserPerfil extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.cancel();
-                Toast.makeText(UserPerfil.this, "Cancel", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserPerfil.this, "Cancelado", Toast.LENGTH_SHORT).show();
             }
         });
         dialog.show();
