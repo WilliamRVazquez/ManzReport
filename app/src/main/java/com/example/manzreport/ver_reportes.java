@@ -66,8 +66,7 @@ public class ver_reportes extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if(item.getItemId() == R.id.rpTerminados){
-                    Toast.makeText(ver_reportes.this, "Reportes Terminados", Toast.LENGTH_SHORT).show();
-                    //startActivity(new Intent(MainActivity.this, login.class));
+                    startActivity(new Intent(ver_reportes.this, ver_reportes_terminados.class));
                 }
                 return false;
             }
