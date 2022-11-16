@@ -27,6 +27,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 
 public class Sing_up extends AppCompatActivity {
     public static final String TAG = "TAG";
@@ -138,6 +141,12 @@ public class Sing_up extends AppCompatActivity {
                                 user.put("email",email);
                                 user.put("phone",phone);
                                 user.put("Rol",rol);
+                                try {
+                                    user.put("password",Security.encrypt(password));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+
+                                }
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -172,6 +181,26 @@ public class Sing_up extends AppCompatActivity {
         if (user != null){
             startActivity(new Intent(Sing_up.this, MainActivity.class));
         }//sacar usuario
+    }
+    public void computeMD5Hash(String password) {
+
+        try {
+            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+            digest.update(password.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            StringBuffer MD5Hash = new StringBuffer();
+            for (int i = 0; i < messageDigest.length; i++) {
+                String h = Integer.toHexString(0xFF & messageDigest[i]);
+                while (h.length() < 2)
+                    h = "0" + h;
+                MD5Hash.append(h);
+            }
+
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -47,8 +47,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.WriteBatch;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     Intent i;
     String borrar;
     int op;
+    Query query;
     GoogleMap gmap;
     FirebaseAuth fAuth;
     double latfire;
@@ -69,10 +72,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     String lat, longi;
     TextView direccion1;
     TextView rol;
+    TextView passwd;
     FirebaseFirestore mFirestore;
     FirebaseAuth mAuth;
     String Rol = "";
     private String password;
+    String ban;
+    String userdata;
+    String deletes;
 
 
     @Override
@@ -88,14 +95,53 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         fAuth = FirebaseAuth.getInstance();
         direccion1 = (TextView) findViewById(R.id.txtdireccion);
         rol = (TextView) findViewById(R.id.rol);
+        passwd = (TextView) findViewById(R.id.pass);
+        String idus = mAuth.getCurrentUser().getUid();
 
         //Bundle data = this.getIntent().getExtras();
         //password = data.getString("password");
+        mFirestore.collection("users").whereEqualTo("Id", mAuth.getCurrentUser().getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                 ban = document.getId();
+
+                                Log.d(TAG, document.getId()+ " => " + document.getString("fName"));
+
+
+
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+        mFirestore.collection("Reportes").whereEqualTo("id_user", mAuth.getCurrentUser().getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                userdata = document.getId();
+                                Log.d(TAG, document.getId());
+
+
+
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         mFirestore.collection("users").whereEqualTo("Id", mAuth.getCurrentUser().getUid())
-                .whereEqualTo("capitan", true)
+                .whereEqualTo("borrado", true)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -103,24 +149,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         if (task.isSuccessful()) {
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
+
                                 AlertDialog.Builder exit = new AlertDialog.Builder(MainActivity.this);
-                                exit.setMessage("Esta seguro de salir de la Aplicacion?")
+
+                                exit.setMessage("El usuario se eliminara por incumplir las normas")
                                         .setCancelable(false)
                                         .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 deleteuser();
-                                            }
-                                        })
-                                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.cancel();
+
                                             }
                                         });
                                 AlertDialog titulo = exit.create();
-                                titulo.setTitle("Salir de la app");
+                                titulo.setTitle("Usuario eliminado");
                                 titulo.show();
 
 
@@ -212,32 +254,57 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void deleteuser() {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), "Josue123");
-        // Prompt the user to re-provide their sign-in credentials
-        user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mFirestore.collection("users").document(ban).delete();
+        mFirestore.collection("Reportes").document().delete();
+        removeAllItemsFromShoppingCart();
+
+
+
+        user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            //mAuth.signOut();
-                            //eliminar clave
-                            FirebaseAuth.getInstance().signOut();
+                if (task.isSuccessful()) {
 
 
-                            Intent intent = new Intent(MainActivity.this, login.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
+                    //mAuth.signOut();
+                    //eliminar clave
+                    FirebaseAuth.getInstance().signOut();
 
-                        }else{
-                            Toast.makeText(getApplicationContext(), "No se pudo eliminar: "+task.getException(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
 
+                    Intent intent = new Intent(MainActivity.this, login.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+
+
+
+                }else{
+                    Toast.makeText(getApplicationContext(), "No se pudo eliminar: "+task.getException(), Toast.LENGTH_LONG).show();
+                }
             }
         });
+    }
+
+    private void removeAllItemsFromShoppingCart() {
+        mFirestore.collection("Reportes")
+                .whereEqualTo("id_user", ban)
+                .get()
+                .addOnSuccessListener((querySnapshot) -> {
+                    WriteBatch batch = mFirestore.batch();
+                    for (DocumentSnapshot doc : querySnapshot) {
+                        batch.delete(doc.getReference());
+                    }
+
+                    batch.commit()
+                            .addOnSuccessListener((result) -> {
+                                Log.i(TAG, "All items have been removed.");
+                            })
+                            .addOnFailureListener((error) -> {
+                                Log.e(TAG, "Failed to remove all items.", error);
+                            });
+                })
+                .addOnFailureListener((error) -> {
+                    Log.e(TAG, "Failed to get your cart items.", error);
+                });
     }
 
 
@@ -381,6 +448,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onStart();
         direccion1.setVisibility(GONE);
         rol.setVisibility(GONE);
+        passwd.setVisibility(GONE);
 
     }
 }
