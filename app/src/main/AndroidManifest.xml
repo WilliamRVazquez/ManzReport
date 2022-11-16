@@ -19,6 +19,13 @@
         android:theme="@style/Theme.ManzReport"
         tools:targetApi="31">
         <activity
+            android:name=".ver_reportes_terminados"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ubicacion_reporte"
             android:exported="false" />
         <activity
