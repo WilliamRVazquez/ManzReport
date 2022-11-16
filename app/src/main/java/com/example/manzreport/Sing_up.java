@@ -99,7 +99,7 @@ public class Sing_up extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                Toast.makeText(Sing_up.this, "Dialog Closed", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Sing_up.this, "Dialog Closed", Toast.LENGTH_SHORT).show();
             }
         });
         btnok.setOnClickListener(new View.OnClickListener() {
