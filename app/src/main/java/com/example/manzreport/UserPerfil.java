@@ -64,7 +64,7 @@ public class UserPerfil extends AppCompatActivity {
         resetPassLocal = findViewById(R.id.resetPasswordLocal);
         buttonsalir = findViewById(R.id.button);
 
-        profileImage = findViewById(R.id.profileImage);
+
         changeProfileImage = findViewById(R.id.changeProfile);
 
         fAuth = FirebaseAuth.getInstance();
