@@ -148,18 +148,18 @@ public class Sing_up extends AppCompatActivity {
 
                                 // send verification link
 
-                                FirebaseUser fuser = fAuth.getCurrentUser();
-                                fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
+                                //FirebaseUser fuser = fAuth.getCurrentUser();
+                                //fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                  //  @Override
+                                    //public void onSuccess(Void aVoid) {
                                         //Toast.makeText(Sing_up.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
-                                    }
-                                });
+                                   // }
+                                //}).addOnFailureListener(new OnFailureListener() {
+                                  //  @Override
+                                    //public void onFailure(@NonNull Exception e) {
+                                      //  Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
+                                   // }
+                                //});
 
                                 Toast.makeText(Sing_up.this, "Registrado.", Toast.LENGTH_SHORT).show();
                                 userID = fAuth.getCurrentUser().getUid();
@@ -171,16 +171,11 @@ public class Sing_up extends AppCompatActivity {
                                 user.put("email",email);
                                 user.put("phone",phone);
                                 user.put("Rol",rol);
-                                try {
-                                    user.put("password",Security.encrypt(password));
-                                } catch (Exception e) {
-                                    e.printStackTrace();
 
-                                }
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "onSuccess: user Profile is created for "+ userID);
+                                        Log.d(TAG, "El perfil se creo con el id"+ userID);
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -222,25 +217,6 @@ public class Sing_up extends AppCompatActivity {
             startActivity(new Intent(Sing_up.this, MainActivity.class));
         }//sacar usuario
     }
-    public void computeMD5Hash(String password) {
 
-        try {
-            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
-            digest.update(password.getBytes());
-            byte messageDigest[] = digest.digest();
-
-            StringBuffer MD5Hash = new StringBuffer();
-            for (int i = 0; i < messageDigest.length; i++) {
-                String h = Integer.toHexString(0xFF & messageDigest[i]);
-                while (h.length() < 2)
-                    h = "0" + h;
-                MD5Hash.append(h);
-            }
-
-
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-    }
 
 }
