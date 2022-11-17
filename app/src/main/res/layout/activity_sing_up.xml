@@ -161,7 +161,6 @@
                 android:layout_marginTop="20dp"
                 android:backgroundTint="#C23A3A"
                 android:text="Registrarse"
-                android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="15dp"
                 app:cornerRadius="30dp"
