@@ -92,10 +92,6 @@ public class UserPerfil extends AppCompatActivity {
                         }
                     }
                 });
-
-
-
-
             }
         });
 
@@ -114,29 +110,14 @@ public class UserPerfil extends AppCompatActivity {
                 }
             }
         });
-
-
-        buttonsalir.setOnClickListener(view ->{
-            AlertDialog.Builder alert = new AlertDialog.Builder(UserPerfil.this);
-            alert.setMessage("¿Deseas cerrar sesion?")
-                    .setCancelable(false)
-                    .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            fAuth.signOut();
-                            startActivity(new Intent(UserPerfil.this, login.class));
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog title = alert.create();
-            title.setTitle("Cerrar Sesion");
-            title.show();
+        buttonsalir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialogcerrarsesion();
+            }
         });
+
+
         if(fAuth.getCurrentUser() == null){
             startActivity(new Intent(getApplicationContext(),login.class));
             finish();
@@ -196,10 +177,6 @@ public class UserPerfil extends AppCompatActivity {
 
             }
         });
-
-
-
-
         //
 
         //changeProfileImage.setOnClickListener(new View.OnClickListener() {
@@ -211,11 +188,35 @@ public class UserPerfil extends AppCompatActivity {
                 //i.putExtra("email",email.getText().toString());
                 //i.putExtra("phone",phone.getText().toString());
                 //startActivity(i);
-//
-
             //}
         //});
         //
+
+
+    }
+
+    private void openDialogcerrarsesion() {
+        dialog.setContentView(R.layout.cerrarseion);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //dialog.setCancelable(false);
+        Button sicerrar = dialog.findViewById(R.id.btn_yescerrar);
+        Button nocerrar = dialog.findViewById(R.id.btn_nocerrar);
+
+        sicerrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fAuth.signOut();
+                startActivity(new Intent(UserPerfil.this, login.class));
+            }
+        });
+
+        nocerrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        dialog.show();
 
 
     }
@@ -272,9 +273,6 @@ public class UserPerfil extends AppCompatActivity {
                         Toast.makeText(UserPerfil.this,   e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
-
             }
         });
         btnno.setOnClickListener(new View.OnClickListener() {
@@ -286,6 +284,11 @@ public class UserPerfil extends AppCompatActivity {
         });
         dialog.show();
     }
+
+
+
+
+
 
     @Override
     protected void onStart() {
