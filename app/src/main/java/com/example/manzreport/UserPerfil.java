@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -63,7 +64,7 @@ public class UserPerfil extends AppCompatActivity {
         email    = findViewById(R.id.profileEmail);
         resetPassLocal = findViewById(R.id.resetPasswordLocal);
         buttonsalir = findViewById(R.id.button);
-        
+
         changeProfileImage = findViewById(R.id.changeProfile);
 
         fAuth = FirebaseAuth.getInstance();
@@ -134,47 +135,22 @@ public class UserPerfil extends AppCompatActivity {
 
 
 
-        resetPassLocal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        resetPassLocal.setOnClickListener((v)->{
+            final EditText resetPassword = new EditText(v.getContext()).findViewById(R.id.newpass);
+            final Dialog dialogres = new Dialog(v.getContext());
+                dialogres.setContentView(R.layout.resetcontra);
+                dialogres.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                Button sireset = dialogres.findViewById(R.id.btn_yesreset);
+                Button noreset = dialogres.findViewById(R.id.btn_noreset);
 
-                final EditText resetPassword = new EditText(v.getContext());
-
-                final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
-                passwordResetDialog.setTitle("Resetiar Contraseña ?");
-                passwordResetDialog.setMessage("Ingresa Nueva Contraseña > 6 Caracteres Minimo.");
-                passwordResetDialog.setView(resetPassword);
-
-
-                passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                noreset.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // extract the email and send reset link
-                        String newPassword = resetPassword.getText().toString();
-                        user.updatePassword(newPassword).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(UserPerfil.this, "Reseteo de Contraseña Completo.", Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(UserPerfil.this, "Error al Cambiar la Contraseña.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                    public void onClick(View v) {
+                        dialogres.cancel();
+
                     }
                 });
-
-                passwordResetDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // close
-                    }
-                });
-
-                passwordResetDialog.create().show();
-
-            }
+                dialogres.show();
         });
         //
 
@@ -190,9 +166,9 @@ public class UserPerfil extends AppCompatActivity {
             //}
         //});
         //
-
-
     }
+
+
 
     private void openDialogcerrarsesion() {
         dialog.setContentView(R.layout.cerrarseion);

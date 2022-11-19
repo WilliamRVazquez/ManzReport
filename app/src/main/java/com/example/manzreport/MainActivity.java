@@ -9,11 +9,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -23,6 +27,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -80,8 +85,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     String ban;
     String userdata;
     String deletes;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         btnPerfil = (Button) findViewById(R.id.btnPerfil);
         mFirestore = FirebaseFirestore.getInstance();
         VereportDialogprogres vereportDialogprogres = new VereportDialogprogres(MainActivity.this);
+        Cerrarapp cerrarapp = new Cerrarapp(MainActivity.this);
         fAuth = FirebaseAuth.getInstance();
         direccion1 = (TextView) findViewById(R.id.txtdireccion);
         rol = (TextView) findViewById(R.id.rol);
@@ -442,7 +446,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         AlertDialog titulo = exit.create();
         titulo.setTitle("Salir de la app");
         titulo.show();
+
     }
+
+
+
     @Override
     protected void onStart() {
         super.onStart();
