@@ -110,6 +110,7 @@ public class UserPerfil extends AppCompatActivity {
                 }
             }
         });
+
         buttonsalir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
