@@ -135,7 +135,7 @@ public class ver_reportes extends AppCompatActivity {
         super.onStop();
         mAdapter.stopListening();
     }
-    public class WrapContentLinearLayoutManager extends LinearLayoutManager {
+    public static class WrapContentLinearLayoutManager extends LinearLayoutManager {
         public WrapContentLinearLayoutManager(Context context) {
             super(context);
         }
