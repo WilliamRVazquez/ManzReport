@@ -122,11 +122,11 @@ public class Sing_up extends AppCompatActivity {
                     mFullName.requestFocus();
                     return;
                 }else if(TextUtils.isEmpty(password)){
-                    mPassword.setError("Requiere Contraseña");
+                    mPassword.setError("Requiere Contraseña",null);
                     mPassword.requestFocus();
                     return;
                 }else if(password.length() < 8){
-                    mPassword.setError("La contraseña debe ser mayor a 8 caracteres y contener una Mayuscula y una Minuscula");
+                    mPassword.setError("La contraseña debe ser mayor a 8 caracteres y contener una Mayuscula y una Minuscula",null);
                     mPassword.requestFocus();
                     return;
                 }else if(TextUtils.isEmpty(phone)){
