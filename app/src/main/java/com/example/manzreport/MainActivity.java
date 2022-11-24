@@ -114,9 +114,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                  ban = document.getId();
 
                                 Log.d(TAG, document.getId()+ " => " + document.getString("fName"));
-
-
-
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());

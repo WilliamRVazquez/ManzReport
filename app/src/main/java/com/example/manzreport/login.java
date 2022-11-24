@@ -1,5 +1,7 @@
 package com.example.manzreport;
 
+import static android.content.ContentValues.TAG;
+
 import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -10,6 +12,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +34,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -89,8 +96,33 @@ public class login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(login.this, "Logeo completado!", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            FirebaseFirestore mFirestore;
+                            mFirestore = FirebaseFirestore.getInstance();
+                            fAuth = FirebaseAuth.getInstance();
+                            mFirestore.collection("users").whereEqualTo("Id", fAuth.getCurrentUser().getUid())
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    String rol = document.getString("Rol");
+                                                    if(rol.equals("0") || rol.equals("1")){
+                                                        Toast.makeText(login.this, "Logeo completado!", Toast.LENGTH_SHORT).show();
+                                                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                                    }else{
+                                                        progressBar.setVisibility(View.GONE);
+                                                        fAuth.signOut();
+                                                        Toast.makeText(login.this, "No tienes el cargo Administrador", Toast.LENGTH_SHORT).show();
+                                                    }
+
+                                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                                }
+                                            } else {
+                                                Log.w(TAG, "Error getting documents.", task.getException());
+                                            }
+                                        }
+                                    });
                         }else {
                             Toast.makeText(login.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
