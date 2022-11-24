@@ -87,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Bienvenido a Reportes Manzanillo"
+                android:text="Bienvenido a MzReport"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="20dp"
@@ -98,39 +98,76 @@
                 tools:ignore="MissingConstraints" />
 
 
-            <EditText
-                android:id="@+id/LogIn_Correo"
-                android:layout_width="352dp"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/new2"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="#D9D9D9"
-                android:hint="Correo"
-                android:inputType="textEmailAddress"
-                android:textColor="@color/black"
-                android:textColorHint="#8C8C8C"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="#DFDFDF"
+                app:counterTextColor="@color/black"
+                app:helperTextTextColor="@color/black"
+                app:hintTextColor="#448EFD"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Name_App"
-                tools:ignore="MissingConstraints" />
+                app:startIconDrawable="@drawable/email2"
+                app:startIconTint="#6E6E6E">
 
-            <EditText
-                android:id="@+id/LogIn_Contraseña"
-                android:layout_width="352dp"
+                <EditText
+                    android:id="@+id/LogIn_Correo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Correo"
+                    android:textCursorDrawable="@drawable/cursorcustom"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/black"
+                    android:textColorHint="#8C8C8C" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="#D9D9D9"
-                android:hint="Contraseña"
-                android:inputType="textPassword"
-                android:textColor="@color/black"
-                android:textColorHint="#8C8C8C"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                app:startIconTint="#6E6E6E"
+                app:startIconDrawable="@drawable/key_black"
+                android:layout_marginEnd="24dp"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="#DFDFDF"
+                app:counterTextColor="@color/black"
+                app:helperTextTextColor="@color/black"
+                app:hintTextColor="#448EFD"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/LogIn_Correo" />
+                app:layout_constraintTop_toBottomOf="@+id/new2"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="#6E6E6E">
+
+                <EditText
+                    android:id="@+id/LogIn_Contraseña"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="#D9D9D9"
+                    android:hint="Contraseña"
+                    android:textCursorDrawable="@drawable/cursorcustom"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black"
+                    android:textColorHint="#8C8C8C" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/button_sesion"
-                android:layout_width="159dp"
-                android:layout_height="67dp"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="#C23A3A"
                 android:text="Iniciar Sesion"
@@ -141,7 +178,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.502"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/LogIn_Contraseña"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
                 tools:ignore="MissingConstraints" />
 
             <TextView
