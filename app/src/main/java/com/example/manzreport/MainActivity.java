@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     String ban;
     String userdata;
     String deletes;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         direccion1 = (TextView) findViewById(R.id.txtdireccion);
         rol = (TextView) findViewById(R.id.rol);
         passwd = (TextView) findViewById(R.id.pass);
-        String idus = mAuth.getCurrentUser().getUid();
+
 
         //Bundle data = this.getIntent().getExtras();
         //password = data.getString("password");
@@ -111,9 +113,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                 ban = document.getId();
+                                ban = document.getId();
 
-                                Log.d(TAG, document.getId()+ " => " + document.getString("fName"));
+                                Log.d(TAG, document.getId() + " => " + document.getString("fName"));
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -129,7 +131,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 userdata = document.getId();
                                 Log.d(TAG, document.getId());
-
 
 
                             }
@@ -167,7 +168,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 titulo.show();
 
 
-
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -187,7 +187,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 //esto es para obtener en un querySnapshot algo especifico de un documento en string y asi no obtener el data
                                 String roles = document.getString("Rol");
                                 rol.setText(roles);
-
 
 
                             }
@@ -224,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View v) {
 
                 vereportDialogprogres.StartAlertDialog();
-                Handler handler =  new Handler();
+                Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -240,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                         startActivity(intent);
                     }
-                },1000);
+                }, 1000);
 
             }
         });
@@ -260,7 +259,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         removeAllItemsFromShoppingCart();
 
 
-
         user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -277,9 +275,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     startActivity(intent);
 
 
-
-                }else{
-                    Toast.makeText(getApplicationContext(), "No se pudo eliminar: "+task.getException(), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "No se pudo eliminar: " + task.getException(), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -336,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 longfire = latLng.longitude;
                 Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
                 try {
-                    List<Address> direccion = geocoder.getFromLocation(latLng.latitude,latLng.longitude,1);
+                    List<Address> direccion = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
                     direccion1.setText(direccion.get(0).getAddressLine(0));
                     String mostradireccion = direccion1.getText().toString();
                     markerOptions.title(mostradireccion);
@@ -408,7 +405,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             if (location != null) {
                                 if (gmap != null) {
 
-                                    gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()),16));
+                                    gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 16));
                                     Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
                                 }
                             }
@@ -421,7 +418,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             e.printStackTrace();
                         }
                     });
-        } catch (SecurityException e) { e.printStackTrace(); }
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onBackPressed() {
@@ -431,7 +430,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        moveTaskToBack(true); finish();
+                        moveTaskToBack(true);
+                        finish();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -447,13 +447,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-
     @Override
     protected void onStart() {
         super.onStart();
         direccion1.setVisibility(GONE);
         rol.setVisibility(GONE);
         passwd.setVisibility(GONE);
+
 
     }
 }

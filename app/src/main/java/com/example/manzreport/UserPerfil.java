@@ -5,8 +5,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -21,8 +23,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -49,6 +55,8 @@ public class UserPerfil extends AppCompatActivity {
     ImageView profileImage;
     ImageButton atras;
     Dialog dialog;
+    String correo_e;
+    String correo_c;
 
 
     @Override
@@ -58,6 +66,11 @@ public class UserPerfil extends AppCompatActivity {
         //
         //
         atras = (ImageButton) findViewById(R.id.atras_perfil_de_usuario);
+        SharedPreferences prefs = getSharedPreferences("Preferences", 0);
+        correo_e = prefs.getString("users", "");
+        SharedPreferences prefs2 = getSharedPreferences("Preferences2", 0);
+        correo_c = prefs.getString("users2", "");
+
 
         phone = findViewById(R.id.profilePhone);
         fullName = findViewById(R.id.profileName);
@@ -79,15 +92,16 @@ public class UserPerfil extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openDialog();
-                 Nombre = dialog.findViewById(R.id.Name);
-                 Email = dialog.findViewById(R.id.Email);
-                 Phone = dialog.findViewById(R.id.Phone);
+                Nombre = dialog.findViewById(R.id.Name);
+                Email = dialog.findViewById(R.id.Email);
+                Phone = dialog.findViewById(R.id.Phone);
                 fStore.collection("users").document(userId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@androidx.annotation.Nullable DocumentSnapshot value, @androidx.annotation.Nullable FirebaseFirestoreException error) {
                         if(value.exists()){
                             Nombre.setText(value.getString("fName"));
                             Email.setText(value.getString("email"));
+
                             Phone.setText(value.getString("phone"));
                         }
                     }
@@ -133,38 +147,81 @@ public class UserPerfil extends AppCompatActivity {
         });
 
 
+        resetPassLocal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                final EditText resetPassword = new EditText(v.getContext());
 
+                final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
+                passwordResetDialog.setTitle("Reset Password ?");
+                passwordResetDialog.setMessage("Enter New Password > 6 Characters long.");
+                passwordResetDialog.setView(resetPassword);
 
-        resetPassLocal.setOnClickListener((v)->{
-            final EditText resetPassword = new EditText(v.getContext()).findViewById(R.id.newpass);
-            final Dialog dialogres = new Dialog(v.getContext());
-                dialogres.setContentView(R.layout.resetcontra);
-                dialogres.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                Button sireset = dialogres.findViewById(R.id.btn_yesreset);
-                Button noreset = dialogres.findViewById(R.id.btn_noreset);
-
-                noreset.setOnClickListener(new View.OnClickListener() {
+                passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        dialogres.cancel();
+                    public void onClick(DialogInterface dialog, int which) {
+                        // extract the email and send reset link
+                        FirebaseUser user2 = FirebaseAuth.getInstance().getCurrentUser();
 
+
+                        AuthCredential credential = EmailAuthProvider
+                                .getCredential(correo_e, correo_c);
+
+
+                        user2.reauthenticate(credential)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        FirebaseUser user1 = FirebaseAuth.getInstance().getCurrentUser();
+                                        String newPassword = resetPassword.getText().toString();
+                                        user1.updatePassword(newPassword)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Toast.makeText(UserPerfil.this, "Se reseteo", Toast.LENGTH_SHORT).show();
+                                                            SharedPreferences prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+                                                            SharedPreferences.Editor editor = prefs.edit();
+                                                            editor.putString("users", newPassword);
+                                                            editor.commit();
+                                                        }
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(UserPerfil.this, "no se pudo", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+
+                                    }
+                                });
                     }
                 });
-                dialogres.show();
+
+                passwordResetDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // close
+                    }
+                });
+
+                passwordResetDialog.create().show();
+
+            }
         });
         //
 
         //changeProfileImage.setOnClickListener(new View.OnClickListener() {
-            //@Override
-            //public void onClick(View v) {
-                // open gallery
-                //Intent i = new Intent(v.getContext(),EditProfile.class);
-                //i.putExtra("fullName",fullName.getText().toString());
-                //i.putExtra("email",email.getText().toString());
-                //i.putExtra("phone",phone.getText().toString());
-                //startActivity(i);
-            //}
+        //@Override
+        //public void onClick(View v) {
+        // open gallery
+        //Intent i = new Intent(v.getContext(),EditProfile.class);
+        //i.putExtra("fullName",fullName.getText().toString());
+        //i.putExtra("email",email.getText().toString());
+        //i.putExtra("phone",phone.getText().toString());
+        //startActivity(i);
+        //}
         //});
         //
     }

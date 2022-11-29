@@ -4,8 +4,10 @@ import static android.content.ContentValues.TAG;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -42,11 +44,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class login extends AppCompatActivity {
-    EditText mEmail,mPassword;
+    EditText mEmail, mPassword;
     Button mLoginBtn;
-    TextView mCreateBtn,forgotTextLink;
+    TextView mCreateBtn, forgotTextLink;
     ProgressBar progressBar;
     FirebaseAuth fAuth;
+    FirebaseUser user;
     int REQUEST_CODE = 200;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -61,9 +64,8 @@ public class login extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         fAuth = FirebaseAuth.getInstance();
         mLoginBtn = findViewById(R.id.button_sesion);
-        mCreateBtn =(TextView) findViewById(R.id.txtv_register_and_btn);
+        mCreateBtn = (TextView) findViewById(R.id.txtv_register_and_btn);
         forgotTextLink = findViewById(R.id.Click_aqui_contraseña);
-
 
 
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
@@ -73,18 +75,18 @@ public class login extends AppCompatActivity {
                 String email = mEmail.getText().toString().trim();
                 String password = mPassword.getText().toString().trim();
 
-                if(TextUtils.isEmpty(email)){
+                if (TextUtils.isEmpty(email)) {
                     mEmail.setError("Correo requerido");
                     return;
                 }
 
-                if(TextUtils.isEmpty(password)){
-                    mPassword.setError("Contraseña requerida",null);
+                if (TextUtils.isEmpty(password)) {
+                    mPassword.setError("Contraseña requerida", null);
                     return;
                 }
 
-                if(password.length() < 6){
-                    mPassword.setError("la Contraseña no es correcta",null);
+                if (password.length() < 6) {
+                    mPassword.setError("la Contraseña no es correcta", null);
                     return;
                 }
 
@@ -92,38 +94,57 @@ public class login extends AppCompatActivity {
 
                 // authenticate the user
 
-                fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             FirebaseFirestore mFirestore;
                             mFirestore = FirebaseFirestore.getInstance();
                             fAuth = FirebaseAuth.getInstance();
-                            mFirestore.collection("users").whereEqualTo("Id", fAuth.getCurrentUser().getUid())
-                                    .get()
-                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            if (task.isSuccessful()) {
-                                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                                    String rol = document.getString("Rol");
-                                                    if(rol.equals("0") || rol.equals("1")){
-                                                        Toast.makeText(login.this, "Logeo completado!", Toast.LENGTH_SHORT).show();
-                                                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                                                    }else{
-                                                        progressBar.setVisibility(View.GONE);
-                                                        fAuth.signOut();
-                                                        Toast.makeText(login.this, "Usted no esta registrado como usuario", Toast.LENGTH_SHORT).show();
-                                                    }
 
-                                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                            SharedPreferences prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putString("users", email);
+                            editor.commit();
+                            SharedPreferences prefs2 = getSharedPreferences("Preferences2", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor2 = prefs2.edit();
+                            editor2.putString("users2", password);
+                            editor2.commit();
+                            user = fAuth.getCurrentUser();
+                            if (!user.isEmailVerified()) {
+                                Toast.makeText(login.this, "Debes de verificar el correo", Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
+                                fAuth.signOut();
+
+                            } else if (user.isEmailVerified()) {
+                                mFirestore.collection("users").whereEqualTo("Id", fAuth.getCurrentUser().getUid())
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                                        String rol = document.getString("Rol");
+                                                        if (rol.equals("0") || rol.equals("1")) {
+                                                            Toast.makeText(login.this, "Logeo completado!", Toast.LENGTH_SHORT).show();
+                                                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                        } else {
+                                                            progressBar.setVisibility(View.GONE);
+                                                            fAuth.signOut();
+                                                            Toast.makeText(login.this, "Usted no esta registrado como usuario", Toast.LENGTH_SHORT).show();
+                                                        }
+
+                                                        Log.d(TAG, document.getId() + " => " + document.getData());
+                                                    }
+                                                } else {
+                                                    Log.w(TAG, "Error getting documents.", task.getException());
+
                                                 }
-                                            } else {
-                                                Log.w(TAG, "Error getting documents.", task.getException());
                                             }
-                                        }
-                                    });
-                        }else {
+                                        });
+                            }
+
+                        } else {
                             Toast.makeText(login.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                         }
@@ -133,28 +154,14 @@ public class login extends AppCompatActivity {
 
             }
         });
-        if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-            finish();
-        }
-
-
-
-
-
 
 
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Sing_up.class));
+                startActivity(new Intent(getApplicationContext(), Sing_up.class));
             }
         });
-
-
-
-
-
 
 
         forgotTextLink.setOnClickListener(new View.OnClickListener() {
@@ -206,22 +213,24 @@ public class login extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FirebaseUser user = fAuth.getCurrentUser();
-        if (user != null){
-            startActivity(new Intent(login.this, MainActivity.class));
+        if (user != null) {
+            if (!user.isEmailVerified()) {
+                startActivity(new Intent(login.this, MainActivity.class));
+            }
         }//sacar usuario
+
     }
+
     // apartado para verificar permisos y pedirlos
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void verificarPermisos() {
-        int  permiso_location_precisa = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
-        if( permiso_location_precisa == PackageManager.PERMISSION_GRANTED){
+        int permiso_location_precisa = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        if (permiso_location_precisa == PackageManager.PERMISSION_GRANTED) {
             //metodo de mandar mensajes
             //Toast.makeText(this, "Consedido", Toast.LENGTH_SHORT).show();
-        }else{
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
+        } else {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+
         }
     }
-
-
-
 }

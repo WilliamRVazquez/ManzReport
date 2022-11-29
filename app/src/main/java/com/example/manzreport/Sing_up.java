@@ -37,7 +37,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class Sing_up extends AppCompatActivity {
     public static final String TAG = "TAG";
-    EditText mFullName,mEmail,mPassword,mPhone;
+    EditText mFullName, mEmail, mPassword, mPhone;
     Button mRegisterBtn;
     TextView mLoginBtn;
     FirebaseAuth fAuth;
@@ -56,12 +56,12 @@ public class Sing_up extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sing_up);
 
-        mFullName   = findViewById(R.id.Register_Nombre_Completo);
-        mEmail      = findViewById(R.id.Register_Correo);
-        mPassword   = findViewById(R.id.Register_Contraseña);
-        mPhone      = findViewById(R.id.Register_telefono);
-        mRegisterBtn= findViewById(R.id.button_Register);
-        mLoginBtn   = findViewById(R.id.txtv_inisesion_btn);
+        mFullName = findViewById(R.id.Register_Nombre_Completo);
+        mEmail = findViewById(R.id.Register_Correo);
+        mPassword = findViewById(R.id.Register_Contraseña);
+        mPhone = findViewById(R.id.Register_telefono);
+        mRegisterBtn = findViewById(R.id.button_Register);
+        mLoginBtn = findViewById(R.id.txtv_inisesion_btn);
         dialog = new Dialog(this);
 
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
@@ -76,10 +76,10 @@ public class Sing_up extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
         progressBar = findViewById(R.id.progressBar);
 
-        if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-            finish();
-        }
+        //if(fAuth.getCurrentUser() != null){
+        //  startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        //finish();
+        //}
 
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,71 +111,70 @@ public class Sing_up extends AppCompatActivity {
                 final String email = mEmail.getText().toString().trim();
                 String password = mPassword.getText().toString().trim();
                 final String fullName = mFullName.getText().toString();
-                final String phone    = mPhone.getText().toString();
+                final String phone = mPhone.getText().toString();
                 int roln = 1;
                 String rol = String.valueOf(roln);
 
 
-
-                if(TextUtils.isEmpty(fullName)){
+                if (TextUtils.isEmpty(fullName)) {
                     mFullName.setError("Requiere Nombre");
                     mFullName.requestFocus();
                     return;
-                }else if(TextUtils.isEmpty(password)){
-                    mPassword.setError("Requiere Contraseña",null);
+                } else if (TextUtils.isEmpty(password)) {
+                    mPassword.setError("Requiere Contraseña", null);
                     mPassword.requestFocus();
                     return;
-                }else if(password.length() < 8){
-                    mPassword.setError("La contraseña debe ser mayor a 8 caracteres y contener una Mayuscula y una Minuscula",null);
+                } else if (password.length() < 8) {
+                    mPassword.setError("La contraseña debe ser mayor a 8 caracteres y contener una Mayuscula y una Minuscula", null);
                     mPassword.requestFocus();
                     return;
-                }else if(TextUtils.isEmpty(phone)){
+                } else if (TextUtils.isEmpty(phone)) {
                     mPhone.setError("Requiere Telefono");
                     mPhone.requestFocus();
                     return;
-                }else if(TextUtils.isEmpty(email)){
+                } else if (TextUtils.isEmpty(email)) {
                     mEmail.setError("Requiere nombre");
                     mEmail.requestFocus();
                     return;
-                }else if(PASSWORD_PATTERN.matcher(password).matches()){
+                } else if (PASSWORD_PATTERN.matcher(password).matches()) {
                     progressBar.setVisibility(View.VISIBLE);
 
                     // register the user in firebase
-                    fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
 
-                                // send verification link
+                                // link de verificacion al correo
 
-                                //FirebaseUser fuser = fAuth.getCurrentUser();
-                                //fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                  //  @Override
-                                    //public void onSuccess(Void aVoid) {
-                                        //Toast.makeText(Sing_up.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
-                                   // }
-                                //}).addOnFailureListener(new OnFailureListener() {
-                                  //  @Override
-                                    //public void onFailure(@NonNull Exception e) {
-                                      //  Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
-                                   // }
-                                //});
+                                FirebaseUser fuser = fAuth.getCurrentUser();
+                                fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(Sing_up.this, "Se ha enviado una Verificacion a tu correo, aceptalo para poder ingresar", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
+                                    }
+                                });
 
-                                Toast.makeText(Sing_up.this, "Registrado.", Toast.LENGTH_SHORT).show();
+
                                 userID = fAuth.getCurrentUser().getUid();
                                 String id = fAuth.getCurrentUser().getUid();
                                 DocumentReference documentReference = fStore.collection("users").document(userID);
-                                Map<String,Object> user = new HashMap<>();
-                                user.put("Id",id);
-                                user.put("fName",fullName);
-                                user.put("email",email);
-                                user.put("phone",phone);
-                                user.put("Rol",rol);
+                                Map<String, Object> user = new HashMap<>();
+                                user.put("Id", id);
+                                user.put("fName", fullName);
+                                user.put("email", email);
+                                user.put("phone", phone);
+                                user.put("Rol", rol);
 
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "El perfil se creo con el id"+ userID);
+                                        Log.d(TAG, "El perfil se creo con el id" + userID);
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -183,16 +182,17 @@ public class Sing_up extends AppCompatActivity {
                                         Log.d(TAG, "onFailure: " + e.toString());
                                     }
                                 });
-                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                startActivity(new Intent(getApplicationContext(), login.class));
                                 finish();
-                            }else {
-                                Toast.makeText(Sing_up.this, "Error ! El Correo ya esta registrado" , Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(Sing_up.this, "Error ! El Correo ya esta registrado", Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
                             }
                         }
                     });
-                }else{
+                } else {
                     mPassword.setError("La contraseña no cumple con los requerimientos.");
+                    progressBar.setVisibility(View.GONE);
                     mPassword.requestFocus();
                 }
 
@@ -212,11 +212,10 @@ public class Sing_up extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser user = fAuth.getCurrentUser();
-        if (user != null){
-            startActivity(new Intent(Sing_up.this, MainActivity.class));
-        }//sacar usuario
+        //FirebaseUser user = fAuth.getCurrentUser();
+        //if (user != null){
+        //  startActivity(new Intent(Sing_up.this, MainActivity.class));
+        //}//sacar usuario
+
     }
-
-
 }

@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Timer;
@@ -23,6 +24,7 @@ public class Principal extends AppCompatActivity {
     Button ini;
     Intent i, j;
     FirebaseAuth fAuth;
+    FirebaseUser user;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -34,9 +36,29 @@ public class Principal extends AppCompatActivity {
 
 
         fAuth = FirebaseAuth.getInstance();
+
         if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-            finish();
+            user = fAuth.getCurrentUser();
+            if(!user.isEmailVerified()){
+                Toast.makeText(this, "Necesitar verificar tu correo", Toast.LENGTH_SHORT).show();
+
+
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        Intent i = new Intent(Principal.this, login.class);
+                        startActivity(i);
+                        finish();
+                    }
+                };
+                Timer time = new Timer();
+                time.schedule(task, 2500);
+
+
+            }else if (user.isEmailVerified()){
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                finish();
+            }
         }else{
             TimerTask task = new TimerTask() {
                 @Override
@@ -74,7 +96,7 @@ public class Principal extends AppCompatActivity {
     public void onBackPressed() {
         moveTaskToBack(true);
         finish();
-    } //codigo para cerrar la app all momento de darle para atras
+    } //codigo para cerrar la app all momento de darle para atras
 
 
 
