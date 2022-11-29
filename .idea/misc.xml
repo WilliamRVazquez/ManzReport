@@ -11,7 +11,9 @@
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/drawable/email.xml" value="0.1" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/drawable/fond.xml" value="0.1" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/drawable/ic_baseline_keyboard_arrow_right_24.xml" value="0.1" />
+        <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/drawable/ic_baseline_query_builder_amarillo.xml" value="0.1" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/drawable/key_black.xml" value="0.1" />
+        <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/drawable/reloj.xml" value="0.1" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/drawable/report.xml" value="0.1035" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/drawable/send.xml" value="0.1035" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/drawable/subir.xml" value="0.1035" />
@@ -34,12 +36,15 @@
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/layout/cus.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/layout/listviewresours.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/layout/pruebas.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/layout/reporte_enproceso.xml" value="0.22" />
+        <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/layout/reportes_declinados.xml" value="0.1585144927536232" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/layout/resetcontra.xml" value="0.25" />
+        <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/layout/terminado_single.xml" value="0.1585144927536232" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/layout/terminos.xml" value="0.18" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/layout/toolbar.xml" value="0.19895833333333332" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/layout/verreportes_dialogprogres.xml" value="0.18" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/layout/view.xml" value="0.1644021739130435" />
-        <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/layout/view_report_single.xml" value="0.2" />
+        <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/layout/view_report_single.xml" value="0.18118948824343015" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
         <entry key="..\:/Users/patit/AndroidStudioProjects/ManzReport/app/src/main/res/layout/activity_main.xml" value="0.17552083333333332" />

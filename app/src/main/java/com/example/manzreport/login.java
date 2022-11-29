@@ -113,7 +113,7 @@ public class login extends AppCompatActivity {
                                                     }else{
                                                         progressBar.setVisibility(View.GONE);
                                                         fAuth.signOut();
-                                                        Toast.makeText(login.this, "No tienes el cargo Administrador", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(login.this, "Usted no esta registrado como usuario", Toast.LENGTH_SHORT).show();
                                                     }
 
                                                     Log.d(TAG, document.getId() + " => " + document.getData());

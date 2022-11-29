@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    android:background="#FFFFFF"
-    android:backgroundTint="#FFFFFF"
+    android:backgroundTint="#F8A8A8"
     app:cardCornerRadius="20dp"
     app:cardElevation="0dp">
 
@@ -111,68 +110,12 @@
 
         </LinearLayout>
 
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp">
-
-                <ImageButton
-                    android:id="@+id/proceso_icon"
-                    android:tooltipText="Proceso"
-                    android:layout_gravity="end"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_baseline_query_builder_24"
-                    android:backgroundTint="@color/white">
-                </ImageButton>
-
-                <ImageButton
-                    android:id="@+id/proceso_aceptado_icon"
-                    android:tooltipText="Aceptado/Proceso"
-                    android:layout_gravity="end"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_baseline_query_builder_amarillo"
-                    android:backgroundTint="@color/white">
-                </ImageButton>
-
-                <ImageButton
-                    android:id="@+id/procesoaceptado_proceso_icon"
-                    android:tooltipText="Actuando ante el incidente"
-                    android:layout_gravity="end"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/reloj"
-                    android:backgroundTint="@color/white">
-                </ImageButton>
-            </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
         <ImageButton
             android:id="@+id/btn_detail"
             android:tooltipText="Detalles"
-            android:layout_weight="1"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_marginLeft="15dp"
             android:src="@drawable/detailblue"
             android:backgroundTint="@color/white"/>
 
@@ -181,7 +124,7 @@
             android:tooltipText="Ubicacion"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_weight="1"
+            android:layout_marginLeft="15dp"
             android:src="@drawable/iclocation"
             android:backgroundTint="@color/white"/>
 
@@ -189,13 +132,13 @@
             android:id="@+id/btn_eliminar"
             android:tooltipText="Eliminar"
             android:layout_width="24dp"
-            android:layout_weight="1"
             android:layout_height="24dp"
-
+            android:layout_marginLeft="15dp"
             android:src="@drawable/deletered"
             android:backgroundTint="@color/white"/>
-            </LinearLayout>
-        </LinearLayout>
+
+
+
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
