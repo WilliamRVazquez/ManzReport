@@ -208,17 +208,19 @@ public class login extends AppCompatActivity {
 
 
     }
+    public void onBackPressed() {
+        moveTaskToBack(true); finish();
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
         FirebaseUser user = fAuth.getCurrentUser();
-        if (user != null) {
-            if (!user.isEmailVerified()) {
+        if (user != null){
+            if(user.isEmailVerified()){
                 startActivity(new Intent(login.this, MainActivity.class));
             }
-        }//sacar usuario
-
+        }
     }
 
     // apartado para verificar permisos y pedirlos
