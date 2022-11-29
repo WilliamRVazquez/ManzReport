@@ -100,7 +100,7 @@ public class ver_reportes extends AppCompatActivity {
 
 
         if(Rol.equals("1")){
-            query = mFirestore.collection("Reportes").whereEqualTo("id_user", mAuth.getCurrentUser().getUid()).whereEqualTo("Aceptado", "Si");
+            query = mFirestore.collection("Reportes").whereEqualTo("id_user", mAuth.getCurrentUser().getUid());
             setUpRecyclerView();
 
         }else if (Rol.equals("0")){

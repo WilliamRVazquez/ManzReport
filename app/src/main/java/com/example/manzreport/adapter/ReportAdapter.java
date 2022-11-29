@@ -49,6 +49,7 @@ public class ReportAdapter extends FirestoreRecyclerAdapter<Report, ReportAdapte
         viewHolder.tititulo.setText(Report.getTitulo());//
         viewHolder.ubicacion.setText(Report.getUbicacion());
         viewHolder.date.setText(Report.getDate().toDate().toString());
+        viewHolder.Aceptado.setText(Report.getAceptado());
 
         viewHolder.btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +118,7 @@ public class ReportAdapter extends FirestoreRecyclerAdapter<Report, ReportAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tititulo, ubicacion, date;
+        TextView tititulo, ubicacion, date, Aceptado;
         ImageView btn_delete,btn_detalles,btn_ubicacion;
 
 
@@ -127,11 +128,12 @@ public class ReportAdapter extends FirestoreRecyclerAdapter<Report, ReportAdapte
             tititulo = itemView.findViewById(R.id.titulo);
             ubicacion = itemView.findViewById(R.id.ubicacion);
             date = itemView.findViewById(R.id.date);
+            Aceptado = itemView.findViewById(R.id.procesoaceptado_proceso_icon);
             btn_delete = itemView.findViewById(R.id.btn_eliminar);
             btn_detalles = itemView.findViewById(R.id.btn_detail);
             btn_ubicacion = itemView.findViewById(R.id.btn_location);
 
-
         }
     }
+
 }

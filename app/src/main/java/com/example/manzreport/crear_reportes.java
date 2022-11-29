@@ -310,7 +310,7 @@ public class crear_reportes extends AppCompatActivity implements AdapterView.OnI
         map.put("longitud",longitud);
         map.put("titulo",titreport);
         map.put("date", FieldValue.serverTimestamp());
-        map.put("Aceptado","no");
+        map.put("Aceptado","En espera");
 
         mfirestore.collection("Reportes").document(idd).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

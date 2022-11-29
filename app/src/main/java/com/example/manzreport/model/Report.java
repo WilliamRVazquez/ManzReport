@@ -6,14 +6,16 @@ public class Report {
     String titulo;
     String ubicacion;
     Timestamp date;
+    String Aceptado;
     public Report(){
 
     }
 
-    public Report(String titulo, String ubicacion,Timestamp date) {
+    public Report(String titulo, String ubicacion,Timestamp date, String Aceptado) {
         this.titulo = titulo;
         this.ubicacion = ubicacion;
         this.date = date;
+        this.Aceptado = Aceptado;
 
 
     }
@@ -40,6 +42,14 @@ public class Report {
 
     public void setDate(Timestamp date) {
         this.date = date;
+    }
+
+    public String getAceptado() {
+        return Aceptado;
+    }
+
+    public void setAceptado(String Aceptado) {
+        this.Aceptado = Aceptado;
     }
 
 }

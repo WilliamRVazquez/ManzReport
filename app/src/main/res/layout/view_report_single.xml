@@ -128,38 +128,27 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp">
 
-                <ImageButton
+                <TextView
                     android:id="@+id/proceso_icon"
-                    android:tooltipText="Proceso"
-                    android:layout_gravity="end"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
+                    android:textAlignment="center"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_baseline_query_builder_24"
-                    android:backgroundTint="@color/white">
-                </ImageButton>
+                    android:textColor="@color/black"
+                    android:text="Estatus:"
+                    android:textStyle="bold"
+                    android:tooltipText="En proceso de aceptacion"></TextView>
 
-                <ImageButton
-                    android:id="@+id/proceso_aceptado_icon"
-                    android:tooltipText="Aceptado/Proceso"
-                    android:layout_gravity="end"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_baseline_query_builder_amarillo"
-                    android:backgroundTint="@color/white">
-                </ImageButton>
 
-                <ImageButton
+                <TextView
                     android:id="@+id/procesoaceptado_proceso_icon"
-                    android:tooltipText="Actuando ante el incidente"
-                    android:layout_gravity="end"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="64dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/reloj"
-                    android:backgroundTint="@color/white">
-                </ImageButton>
+                    android:hint="Proceso"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:tooltipText="Atendiendo el incidente"></TextView>
             </LinearLayout>
 
 
