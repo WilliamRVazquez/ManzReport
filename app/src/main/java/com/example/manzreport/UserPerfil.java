@@ -182,7 +182,7 @@ public class UserPerfil extends AppCompatActivity {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if (task.isSuccessful()) {
-                                                            Toast.makeText(UserPerfil.this, "Se reseteo", Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(UserPerfil.this, "Se modifico la contraseña", Toast.LENGTH_SHORT).show();
                                                             //SharedPreferences prefs2 = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
                                                             //SharedPreferences.Editor editor = prefs2.edit();
                                                             //editor.putString("users", newPassword);
@@ -197,13 +197,12 @@ public class UserPerfil extends AppCompatActivity {
                                                             fStore.collection("users").document(userId).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                 @Override
                                                                 public void onSuccess(Void unused) {
-                                                                    Toast.makeText(UserPerfil.this, "se modificoaasasasasasa", Toast.LENGTH_SHORT).show();
 
                                                                 }
                                                             }).addOnFailureListener(new OnFailureListener() {
                                                                 @Override
                                                                 public void onFailure(@NonNull Exception e) {
-                                                                    Toast.makeText(UserPerfil.this, "lloremos", Toast.LENGTH_SHORT).show();
+
                                                                 }
                                                             });
 
@@ -215,7 +214,7 @@ public class UserPerfil extends AppCompatActivity {
                                                 }).addOnFailureListener(new OnFailureListener() {
                                                     @Override
                                                     public void onFailure(@NonNull Exception e) {
-                                                        Toast.makeText(UserPerfil.this, "no se pudo", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(UserPerfil.this, "no se pudo modificar la contraseña", Toast.LENGTH_SHORT).show();
                                                     }
                                                 });
 

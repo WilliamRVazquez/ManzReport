@@ -125,13 +125,13 @@ public class login extends AppCompatActivity {
                             mFirestore.collection("users").document(userId).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    Toast.makeText(login.this, "se hizoooo", Toast.LENGTH_SHORT).show();
+
 
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(login.this, "lloremos", Toast.LENGTH_SHORT).show();
+
                                 }
                             });
                             if (!user.isEmailVerified()) {
