@@ -42,6 +42,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class login extends AppCompatActivity {
     EditText mEmail, mPassword;
@@ -102,15 +104,36 @@ public class login extends AppCompatActivity {
                             mFirestore = FirebaseFirestore.getInstance();
                             fAuth = FirebaseAuth.getInstance();
 
-                            SharedPreferences prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = prefs.edit();
-                            editor.putString("users", email);
-                            editor.commit();
-                            SharedPreferences prefs2 = getSharedPreferences("Preferences2", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor2 = prefs2.edit();
-                            editor2.putString("users2", password);
-                            editor2.commit();
+
+                            //SharedPreferences prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+                            //SharedPreferences.Editor editor = prefs.edit();
+                            //editor.putString("users", email);
+                            //editor.commit();
+                            //SharedPreferences prefs2 = getSharedPreferences("Preferences2", Context.MODE_PRIVATE);
+                            //SharedPreferences.Editor editor2 = prefs2.edit();
+                            //editor2.putString("users2", password);
+                            //editor2.commit();
                             user = fAuth.getCurrentUser();
+                            String userId = fAuth.getCurrentUser().getUid();
+                            Map<String, Object> map = new HashMap<>();
+                            try {
+                                map.put("password",Security.encrypt(password));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+
+                            }
+                            mFirestore.collection("users").document(userId).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(login.this, "se hizoooo", Toast.LENGTH_SHORT).show();
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(login.this, "lloremos", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                             if (!user.isEmailVerified()) {
                                 Toast.makeText(login.this, "Debes de verificar el correo", Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
@@ -124,6 +147,7 @@ public class login extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                 if (task.isSuccessful()) {
                                                     for (QueryDocumentSnapshot document : task.getResult()) {
+
                                                         String rol = document.getString("Rol");
                                                         if (rol.equals("0") || rol.equals("1")) {
                                                             Toast.makeText(login.this, "Logeo completado!", Toast.LENGTH_SHORT).show();

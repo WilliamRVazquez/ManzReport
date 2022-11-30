@@ -81,10 +81,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     FirebaseFirestore mFirestore;
     FirebaseAuth mAuth;
     String Rol = "";
-    private String password;
+    String password;
     String ban;
     String userdata;
     String deletes;
+    String correo;
 
 
     @Override
@@ -114,6 +115,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 ban = document.getId();
+                                correo = document.getString("email");
+
+                                try {
+                                    password = document.getString("password");
+                                    Security.decrypt(password);
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+
+                                }
 
                                 Log.d(TAG, document.getId() + " => " + document.getString("fName"));
                             }
@@ -151,6 +162,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         if (task.isSuccessful()) {
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
+
 
                                 AlertDialog.Builder exit = new AlertDialog.Builder(MainActivity.this);
 
@@ -246,6 +258,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         btnPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("users", correo);
+                editor.commit();
+                SharedPreferences prefs2 = getSharedPreferences("Preferences2", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor2 = prefs2.edit();
+                editor2.putString("users2", password);
+                editor2.commit();
                 i = new Intent(MainActivity.this, UserPerfil.class);
                 startActivity(i);
             }

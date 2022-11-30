@@ -170,6 +170,13 @@ public class Sing_up extends AppCompatActivity {
                                 user.put("email", email);
                                 user.put("phone", phone);
                                 user.put("Rol", rol);
+                                //apartado para encriptar contraseña
+                                try {
+                                    user.put("password",Security.encrypt(password));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+
+                                }
 
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override

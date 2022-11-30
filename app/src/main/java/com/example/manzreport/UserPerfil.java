@@ -36,6 +36,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 import java.util.HashMap;
@@ -69,7 +71,7 @@ public class UserPerfil extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("Preferences", 0);
         correo_e = prefs.getString("users", "");
         SharedPreferences prefs2 = getSharedPreferences("Preferences2", 0);
-        correo_c = prefs.getString("users2", "");
+        correo_c = prefs2.getString("users2", "");
 
 
         phone = findViewById(R.id.profilePhone);
@@ -166,7 +168,7 @@ public class UserPerfil extends AppCompatActivity {
 
 
                         AuthCredential credential = EmailAuthProvider
-                                .getCredential(correo_e, correo_c);
+                                .getCredential(correo_e,correo_c);
 
 
                         user2.reauthenticate(credential)
@@ -181,10 +183,33 @@ public class UserPerfil extends AppCompatActivity {
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if (task.isSuccessful()) {
                                                             Toast.makeText(UserPerfil.this, "Se reseteo", Toast.LENGTH_SHORT).show();
-                                                            SharedPreferences prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-                                                            SharedPreferences.Editor editor = prefs.edit();
-                                                            editor.putString("users", newPassword);
-                                                            editor.commit();
+                                                            //SharedPreferences prefs2 = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+                                                            //SharedPreferences.Editor editor = prefs2.edit();
+                                                            //editor.putString("users", newPassword);
+                                                            //editor.commit();
+                                                            Map<String, Object> map = new HashMap<>();
+                                                            try {
+                                                                map.put("password",Security.encrypt(newPassword));
+                                                            } catch (Exception e) {
+                                                                e.printStackTrace();
+
+                                                            }
+                                                            fStore.collection("users").document(userId).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void unused) {
+                                                                    Toast.makeText(UserPerfil.this, "se modificoaasasasasasa", Toast.LENGTH_SHORT).show();
+
+                                                                }
+                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Toast.makeText(UserPerfil.this, "lloremos", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            });
+
+                                                            SharedPreferences prefs2 = getSharedPreferences("Preferences2", Context.MODE_PRIVATE);
+                                                            SharedPreferences.Editor editor2 = prefs2.edit();
+                                                            editor2.putString("users2", newPassword);
                                                         }
                                                     }
                                                 }).addOnFailureListener(new OnFailureListener() {
