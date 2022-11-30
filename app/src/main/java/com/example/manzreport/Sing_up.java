@@ -137,66 +137,82 @@ public class Sing_up extends AppCompatActivity {
                     mEmail.requestFocus();
                     return;
                 } else if (PASSWORD_PATTERN.matcher(password).matches()) {
-                    progressBar.setVisibility(View.VISIBLE);
+                    boolean fullNameVerificar = fullName.matches("^[a-zA-Z\\s]*$");
+                    boolean emailVerificar = email.matches("^[_A-Za-z0-9-\\\\+]+(\\\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\\\.[A-Za-z0-9]+)*(\\\\.[A-Za-z]{2,})$");
+                    boolean phoneVerificar = phone.matches("\\+\\d{12}");
 
-                    // register the user in firebase
-                    fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-
-                                // link de verificacion al correo
-
-                                FirebaseUser fuser = fAuth.getCurrentUser();
-                                fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    if(fullNameVerificar){
+                        if (emailVerificar){
+                            if(phoneVerificar){
+                                progressBar.setVisibility(View.VISIBLE);
+                                // register the user in firebase
+                                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(Sing_up.this, "Se ha enviado una Verificacion a tu correo, aceptalo para poder ingresar", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+
+                                            // link de verificacion al correo
+
+                                            FirebaseUser fuser = fAuth.getCurrentUser();
+                                            fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(Sing_up.this, "Se ha enviado una Verificacion a tu correo, aceptalo para poder ingresar", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
+                                                }
+                                            });
+
+
+                                            userID = fAuth.getCurrentUser().getUid();
+                                            String id = fAuth.getCurrentUser().getUid();
+                                            DocumentReference documentReference = fStore.collection("users").document(userID);
+                                            Map<String, Object> user = new HashMap<>();
+                                            user.put("Id", id);
+                                            user.put("fName", fullName);
+                                            user.put("email", email);
+                                            user.put("phone", phone);
+                                            user.put("Rol", rol);
+                                            //apartado para encriptar contraseña
+                                            try {
+                                                user.put("password",Security.encrypt(password));
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+
+                                            }
+
+                                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d(TAG, "El perfil se creo con el id" + userID);
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d(TAG, "onFailure: " + e.toString());
+                                                }
+                                            });
+                                            startActivity(new Intent(getApplicationContext(), login.class));
+                                            finish();
+                                        } else {
+                                            Toast.makeText(Sing_up.this, "Error ! El Correo ya esta registrado", Toast.LENGTH_SHORT).show();
+                                            progressBar.setVisibility(View.GONE);
+                                        }
                                     }
                                 });
-
-
-                                userID = fAuth.getCurrentUser().getUid();
-                                String id = fAuth.getCurrentUser().getUid();
-                                DocumentReference documentReference = fStore.collection("users").document(userID);
-                                Map<String, Object> user = new HashMap<>();
-                                user.put("Id", id);
-                                user.put("fName", fullName);
-                                user.put("email", email);
-                                user.put("phone", phone);
-                                user.put("Rol", rol);
-                                //apartado para encriptar contraseña
-                                try {
-                                    user.put("password",Security.encrypt(password));
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-
-                                }
-
-                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "El perfil se creo con el id" + userID);
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: " + e.toString());
-                                    }
-                                });
-                                startActivity(new Intent(getApplicationContext(), login.class));
-                                finish();
-                            } else {
-                                Toast.makeText(Sing_up.this, "Error ! El Correo ya esta registrado", Toast.LENGTH_SHORT).show();
-                                progressBar.setVisibility(View.GONE);
+                            }else{
+                                Toast.makeText(Sing_up.this, "Introduce un numero valido", Toast.LENGTH_SHORT).show();
                             }
+                        }else{
+                            Toast.makeText(Sing_up.this, "Introduce un correo valido", Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    }else{
+                        Toast.makeText(Sing_up.this, "Introduce un nombre valido", Toast.LENGTH_SHORT).show();
+                    }
+
                 } else {
                     mPassword.setError("La contraseña no cumple con los requerimientos.");
                     progressBar.setVisibility(View.GONE);
