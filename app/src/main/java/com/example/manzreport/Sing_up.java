@@ -138,7 +138,7 @@ public class Sing_up extends AppCompatActivity {
                     return;
                 } else if (PASSWORD_PATTERN.matcher(password).matches()) {
                     boolean fullNameVerificar = fullName.matches("^[a-zA-Z\\s]*$");
-                    boolean emailVerificar = email.matches("^[_A-Za-z0-9-\\\\+]+(\\\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\\\.[A-Za-z0-9]+)*(\\\\.[A-Za-z]{2,})$");
+                    boolean emailVerificar = email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
                     boolean phoneVerificar = phone.matches("\\+\\d{12}");
 
                     if(fullNameVerificar){
