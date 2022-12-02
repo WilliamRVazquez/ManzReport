@@ -87,7 +87,7 @@ public class login extends AppCompatActivity {
                     return;
                 }
 
-                if (password.length() < 6) {
+                if (password.length() < 8) {
                     mPassword.setError("la Contraseña no es correcta", null);
                     return;
                 }
